@@ -1,0 +1,125 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 50px;
+  box-shadow: 0 4px 24px rgba(23, 32, 61, 0.06);
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoMark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #0fbfb0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.brandName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1b2a4e;
+}
+.brandName img {
+  width: 158px;
+}
+
+.brandDot {
+  color: #0fbfb0;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: #8a93a6;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.navItem:hover {
+  background-color: #f5f6fa;
+}
+
+.navItemActive {
+  background-color: #0fbfb0;
+  color: #ffffff;
+}
+
+.navItemActive:hover {
+  background-color: #0fbfb0;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.profileText {
+  display: none;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .profileText {
+    display: block;
+  }
+}
+
+.profileName {
+  font-weight: 600;
+  color: #1b2a4e;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.profileTitle {
+  color: #8a93a6;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.iconButton {
+  color: #8a93a6;
+  cursor: pointer;
+}

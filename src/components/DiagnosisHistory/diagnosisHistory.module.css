@@ -1,0 +1,178 @@
+.wrapper {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+
+.chartCard {
+  background: var(--color-chart-bg);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.chartArea {
+  flex: 1;
+  min-width: 260px;
+}
+
+.chartHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.chartTitle {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.range {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .legend {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 160px;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .divider {
+    display: block;
+  }
+}
+
+.legendItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.legendLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-bottom: 0.25rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.dotPink {
+  background-color: var(--color-chart-systolic);
+}
+
+.dotPurple {
+  background-color: var(--color-chart-diastolic);
+}
+
+.legendValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.legendSub {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.vitalsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .vitalsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.vitalTile {
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+
+.tileBlue {
+  background-color: var(--color-tile-blue);
+}
+
+.tileRed {
+  background-color: var(--color-tile-red);
+}
+
+.tilePink {
+  background-color: var(--color-tile-pink);
+}
+
+.tileIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tileValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.tileUnit {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tileLabel {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+
+.tileStatus {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-navy);
+}

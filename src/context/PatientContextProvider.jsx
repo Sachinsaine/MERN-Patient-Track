@@ -16,12 +16,11 @@ export const PatientContextProvider = ({ children }) => {
     }
   }, [patients, selectedPatient]);
 
-  console.log(patient);
-
   const value = {
     patients,
     loading,
     error,
+    patient,
     selectedPatient,
     setSelectedPatient,
   };

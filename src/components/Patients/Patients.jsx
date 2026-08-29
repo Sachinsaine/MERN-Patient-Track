@@ -8,7 +8,7 @@ export const Patients = () => {
     useContext(PatientContext);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <h1 className={styles.card}>Loading...</h1>;
   }
 
   if (error) {

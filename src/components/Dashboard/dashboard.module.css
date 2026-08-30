@@ -3,7 +3,6 @@
   grid-template-columns: 280px 1fr 320px;
   gap: 1.25rem;
   align-items: start;
-  height: 100vh;
   background-color: var(--color-background);
   box-sizing: border-box;
   overflow: hidden;

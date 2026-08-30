@@ -1,8 +1,13 @@
 .wrapper {
+  width: 100%;
+  box-sizing: border-box;
   background: #ffffff;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  padding: 1.5rem;
+  padding: 1.25rem;
+}
+.mainCont {
+  height: 100%;
 }
 
 .heading {
@@ -13,65 +18,64 @@
 }
 
 .chartCard {
-  background: var(--color-chart-bg);
+  width: 100%;
+  min-height: 300px;
+  background: #f4f3fb;
   border-radius: 16px;
-  padding: 1.25rem;
+  padding: 20px 18px 16px;
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+  gap: 28px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .chartArea {
   flex: 1;
-  min-width: 260px;
+  min-width: 0;
 }
 
 .chartHeaderRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 12px;
 }
 
 .chartTitle {
-  font-weight: 600;
-  color: var(--color-navy);
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #26364b;
 }
 
 .range {
-  font-size: 0.75rem;
-  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #536174;
+  white-space: nowrap;
+}
+
+.arrow {
+  font-size: 10px;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 225px;
 }
 
 .legend {
+  width: 245px;
+  flex-shrink: 0;
+
   display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-}
 
-@media (min-width: 768px) {
-  .legend {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 160px;
-  }
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .divider {
-    display: block;
-  }
+  padding: 8px 0;
 }
 
 .legendItem {
@@ -82,53 +86,73 @@
 .legendLabel {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  color: var(--color-muted);
-  margin-bottom: 0.25rem;
+  gap: 7px;
+
+  font-size: 15px;
+  font-weight: 600;
+  color: #3f4b5c;
+
+  margin-bottom: 8px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
   display: inline-block;
 }
 
 .dotPink {
-  background-color: var(--color-chart-systolic);
+  background: #dc63ad;
 }
 
 .dotPurple {
-  background-color: var(--color-chart-diastolic);
+  background: #7d73c7;
 }
 
 .legendValue {
-  font-size: 1.5rem;
+  margin: 0 0 8px;
+
+  font-size: 26px;
   font-weight: 700;
-  color: var(--color-navy);
+  line-height: 1;
+
+  color: #26364b;
 }
 
 .legendSub {
-  font-size: 0.75rem;
-  color: var(--color-muted);
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 400;
+  color: #536174;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+
+  background: #dedee7;
+
+  margin: 20px 0;
 }
 
 .vitalsGrid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .vitalsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 1.25rem;
 }
 
 .vitalTile {
-  border-radius: var(--radius-card);
-  padding: 1.25rem;
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .tileBlue {
@@ -146,33 +170,120 @@
 .tileIcon {
   width: 48px;
   height: 48px;
-  border-radius: 9999px;
+  border-radius: 50%;
   background: #ffffff;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+
+  margin-bottom: 16px;
 }
 
 .tileValue {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 700;
-  color: var(--color-navy);
+  line-height: 1.2;
+  color: #26364b;
+  margin: 0 0 6px;
 }
 
 .tileUnit {
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 500;
 }
 
+.temperatureUnit {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
 .tileLabel {
-  font-size: 0.875rem;
-  color: var(--color-muted);
-  margin-bottom: 0.5rem;
+  font-size: 14px;
+  color: #687386;
+  margin: 0 0 8px;
 }
 
 .tileStatus {
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--color-navy);
+  color: #26364b;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .chartCard {
+    gap: 20px;
+    padding: 18px;
+  }
+
+  .legend {
+    width: 210px;
+  }
+
+  .chartTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .chartCard {
+    flex-direction: column;
+    padding: 18px 16px;
+    gap: 20px;
+  }
+
+  .chartWrapper {
+    height: 240px;
+  }
+
+  .legend {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .divider {
+    width: 1px;
+    height: auto;
+    margin: 0 15px;
+  }
+
+  .vitalsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartCard {
+    padding: 15px 12px;
+    border-radius: 12px;
+  }
+
+  .chartTitle {
+    font-size: 17px;
+  }
+
+  .range {
+    font-size: 12px;
+  }
+
+  .chartWrapper {
+    height: 210px;
+  }
+
+  .legendValue {
+    font-size: 23px;
+  }
+
+  .legendLabel {
+    font-size: 13px;
+  }
+
+  .legendSub {
+    font-size: 12px;
+  }
 }

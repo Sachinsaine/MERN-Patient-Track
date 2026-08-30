@@ -10,6 +10,7 @@ import styles from "./patientProfile.module.css";
 
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
+import { Link } from "react-router-dom";
 
 export const PatientProfile = () => {
   const { loading, patient } = useContext(PatientContext);
@@ -79,7 +80,9 @@ export const PatientProfile = () => {
         </div>
       </div>
 
-      <button className={styles.ctaBtn}>Show All Information</button>
+      <Link to="/patientInfo">
+        <button className={styles.ctaBtn}>Show All Information</button>
+      </Link>
     </div>
   );
 };

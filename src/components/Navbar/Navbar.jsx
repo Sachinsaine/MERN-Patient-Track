@@ -25,13 +25,16 @@ const dummyDoctor = {
 };
 
 import Logo from "../../assets/Logo.png";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
     <header className={styles.header}>
       <div className={styles.brand}>
         <span className={styles.brandName}>
-          <img src={Logo} alt="" />
+          <Link to="/">
+            <img src={Logo} alt="TechCareLogo" />
+          </Link>
         </span>
       </div>
 

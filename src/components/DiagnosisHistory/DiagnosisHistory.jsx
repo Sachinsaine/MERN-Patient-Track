@@ -1,25 +1,8 @@
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   ResponsiveContainer,
-//   CartesianGrid,
-// } from "recharts";
 import { FaLungs, FaHeartPulse } from "react-icons/fa6";
 import { FiThermometer } from "react-icons/fi";
 import styles from "./diagnosisHistory.module.css";
-
-// Dummy data — replace with real data (props, context, or API) later
-const dummyBloodPressure = [
-  { label: "Oct, 2023", systolic: 120, diastolic: 110 },
-  { label: "Nov, 2023", systolic: 130, diastolic: 65 },
-  { label: "Dec, 2023", systolic: 160, diastolic: 110 },
-  { label: "Jan, 2024", systolic: 122, diastolic: 90 },
-  { label: "Feb, 2024", systolic: 148, diastolic: 72 },
-  { label: "Mar, 2024", systolic: 155, diastolic: 78 },
-];
+import { useContext } from "react";
+import { PatientContext } from "../../context/PatientContext";
 
 const dummyLatest = {
   systolic: { value: 160, levels: "Higher than Average" },
@@ -30,6 +13,27 @@ const dummyLatest = {
 };
 
 export const DiagnosisHistory = () => {
+  const { patient, loading } = useContext(PatientContext);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (!patient) {
+    return <h1>No patient is selected</h1>;
+  }
+
+  const heartRate = patient.diagnosis_history[0].heart_rate.value;
+  const temperature = patient.diagnosis_history[0].temperature.value;
+  const respiratoryRate = patient.diagnosis_history[0].respiratory_rate.value;
+
+  const heartRateLevel = patient.diagnosis_history[0].heart_rate.levels;
+  const temperatureLevel = patient.diagnosis_history[0].temperature.levels;
+  const respiratoryRateLevel =
+    patient.diagnosis_history[0].respiratory_rate.levels;
+
+  console.log(respiratoryRate);
+
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.heading}>Diagnosis History</h2>
@@ -107,22 +111,20 @@ export const DiagnosisHistory = () => {
             <FaLungs size={22} color="#3aa9dc" />
           </div>
           <p className={styles.tileValue}>
-            {dummyLatest.respiratory_rate.value}
+            {respiratoryRate}
             <span className={styles.tileUnit}> bpm</span>
           </p>
           <p className={styles.tileLabel}>Respiratory Rate</p>
-          <p className={styles.tileStatus}>
-            {dummyLatest.respiratory_rate.levels}
-          </p>
+          <p className={styles.tileStatus}>{respiratoryRateLevel}</p>
         </div>
 
         <div className={`${styles.vitalTile} ${styles.tileRed}`}>
           <div className={styles.tileIcon}>
             <FiThermometer size={22} color="#e05a5a" />
           </div>
-          <p className={styles.tileValue}>{dummyLatest.temperature.value}°F</p>
+          <p className={styles.tileValue}>{temperature}°F</p>
           <p className={styles.tileLabel}>Temperature</p>
-          <p className={styles.tileStatus}>{dummyLatest.temperature.levels}</p>
+          <p className={styles.tileStatus}>{temperatureLevel}</p>
         </div>
 
         <div className={`${styles.vitalTile} ${styles.tilePink}`}>
@@ -130,11 +132,11 @@ export const DiagnosisHistory = () => {
             <FaHeartPulse size={22} color="#e0559a" />
           </div>
           <p className={styles.tileValue}>
-            {dummyLatest.heart_rate.value}
+            {heartRate}
             <span className={styles.tileUnit}> bpm</span>
           </p>
           <p className={styles.tileLabel}>Heart Rate</p>
-          <p className={styles.tileStatus}>▼ {dummyLatest.heart_rate.levels}</p>
+          <p className={styles.tileStatus}>▼ {heartRateLevel}</p>
         </div>
       </div>
     </div>

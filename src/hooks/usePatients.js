@@ -8,8 +8,10 @@ export const usePatients = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/patient");
-
+        // const response = await fetch("http://localhost:4000/api/patient");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/patient`,
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch patients");
         }

@@ -21,9 +21,19 @@ const Patient = require("./models/PatientModel");
 
 const patients = require("./data/patients");
 
-const PORT = 4000;
+// Use the hosting provider's PORT in production,
+// otherwise use 4000 locally.
+const PORT = process.env.PORT || 4000;
 
+// Connect to MongoDB
 connectDB();
+
+// Health check
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Patient Track API is running",
+  });
+});
 
 // GET ALL PATIENTS
 app.get("/api/patient", async (req, res) => {
@@ -181,6 +191,7 @@ app.post("/api/patient/seed", async (req, res) => {
   }
 });
 
+// START SERVER
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

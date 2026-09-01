@@ -2,13 +2,18 @@ import { useContext } from "react";
 import { FiSearch, FiMoreVertical } from "react-icons/fi";
 import styles from "./patient.module.css";
 import { PatientContext } from "../../context/PatientContext";
+import { PatientsSkeleton } from "../PatientSkeleton/PatientsSkeleton";
 
 export const Patients = () => {
   const { patients, loading, error, selectedPatient, setSelectedPatient } =
     useContext(PatientContext);
 
   if (loading) {
-    return <h1 className={styles.card}>Loading...</h1>;
+    return (
+      <h1 className={styles.card}>
+        <PatientsSkeleton />
+      </h1>
+    );
   }
 
   if (error) {

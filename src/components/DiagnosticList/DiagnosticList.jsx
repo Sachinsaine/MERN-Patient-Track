@@ -16,14 +16,12 @@ export const DiagnosticList = () => {
       <h2 className={styles.title}>Diagnostic List</h2>
 
       <div className={styles.tableContainer}>
-        {/* Table Header */}
         <div className={styles.tableHeader}>
           <div>Problem/Diagnosis</div>
           <div>Description</div>
           <div>Status</div>
         </div>
 
-        {/* Table Body */}
         <div className={styles.tableBody}>
           {diagnosticList.map((data, index) => (
             <div className={styles.tableRow} key={`${data.name}-${index}`}>

@@ -10,52 +10,34 @@
 
 .title {
   margin: 0 0 18px;
-
   font-size: 20px;
   font-weight: 700;
-
   color: #26364b;
 }
-
-/* TABLE */
 
 .tableContainer {
   width: 100%;
   overflow: hidden;
 }
 
-/* HEADER */
-
 .tableHeader {
   display: grid;
   grid-template-columns: 1.2fr 1.8fr 0.7fr;
-
   align-items: center;
-
   background: #f1f4f8;
-
   border-radius: 20px;
-
   padding: 10px 14px;
-
   font-size: 11px;
   font-weight: 600;
-
   color: #536174;
-
   box-sizing: border-box;
 }
-
-/* BODY */
 
 .tableBody {
   max-height: 125px;
   overflow-y: auto;
-
   padding-right: 8px;
 }
-
-/* Custom Scrollbar */
 
 .tableBody::-webkit-scrollbar {
   width: 4px;
@@ -71,22 +53,14 @@
   border-radius: 10px;
 }
 
-/* ROW */
-
 .tableRow {
   display: grid;
   grid-template-columns: 1.2fr 1.8fr 0.7fr;
-
   align-items: center;
-
   min-height: 34px;
-
   padding: 8px 14px;
-
   font-size: 11px;
-
   color: #3d4a5c;
-
   box-sizing: border-box;
 }
 

@@ -13,12 +13,17 @@ import {
   YAxis,
 } from "recharts";
 import { DiagnosticList } from "../DiagnosticList/DiagnosticList";
+import { DiagnosisHistorySkeleton } from "../DiagnosisHistorySkeleton/DiagnosisHistorySkeleton";
 
 export const DiagnosisHistory = () => {
   const { patient, loading } = useContext(PatientContext);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
+  if (loading || !patient) {
+    return (
+      <h1 className={styles.wrapper}>
+        <DiagnosisHistorySkeleton />
+      </h1>
+    );
   }
 
   if (!patient) {

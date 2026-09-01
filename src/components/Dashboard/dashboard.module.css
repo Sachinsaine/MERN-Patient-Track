@@ -13,7 +13,6 @@
   overflow-y: auto;
 }
 
-/* Tablet */
 @media (max-width: 1024px) {
   .dashboard {
     height: auto;
@@ -27,12 +26,11 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-  .diagnosis,
+  /* .diagnosis,
   .profile {
     display: none;
-  }
+  } */
 
   .patients {
     display: block;

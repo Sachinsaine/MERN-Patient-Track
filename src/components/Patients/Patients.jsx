@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiSearch, FiMoreVertical } from "react-icons/fi";
 import styles from "./patient.module.css";
 import { PatientContext } from "../../context/PatientContext";
@@ -8,6 +8,14 @@ import { useNavigate } from "react-router-dom";
 export const Patients = () => {
   const { patients, loading, error, selectedPatient, setSelectedPatient } =
     useContext(PatientContext);
+
+  const [input, setInput] = useState("");
+
+  const filterPatient = patients.filter((patient) =>
+    patient.name.toLowerCase().includes(input.toLowerCase()),
+  );
+
+  console.log(filterPatient);
 
   const navigate = useNavigate();
   if (loading) {
@@ -33,14 +41,24 @@ export const Patients = () => {
   return (
     <div className={styles.card}>
       <div className={styles.headerRow}>
-        <h2 className={styles.title}>Patients</h2>
-        <button className={styles.searchBtn} aria-label="Search patients">
+        {/* <h2 className={styles.title}>Patients</h2> */}
+        {/* <button className={styles.searchBtn} aria-label="Search patients">
           <FiSearch size={18} />
-        </button>
+        </button> */}
+        <div className={styles.searchWrapper}>
+          <FiSearch size={18} className={styles.searchIcon} />
+
+          <input
+            type="text"
+            placeholder="Search patients..."
+            className={styles.searchInput}
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </div>
       </div>
 
       <ul className={styles.list}>
-        {patients.map((patient) => {
+        {filterPatient.map((patient) => {
           const isActive = patient._id === selectedPatient;
           return (
             <li key={patient._id}>

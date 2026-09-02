@@ -18,9 +18,11 @@ export const PatientProfile = () => {
   const { loading, patient } = useContext(PatientContext);
 
   if (loading) {
-    return <div className={styles.card}>
-      <ProfileSkeleton/>
-    </div>;
+    return (
+      <div className={styles.card}>
+        <ProfileSkeleton />
+      </div>
+    );
   }
 
   if (!patient) {
@@ -89,7 +91,9 @@ export const PatientProfile = () => {
           <button className={styles.ctaBtn}>Show All Information</button>
         </Link>
       </div>
-      <LabResults />
+      <div className={styles.labResults}>
+        <LabResults />
+      </div>
     </div>
   );
 };

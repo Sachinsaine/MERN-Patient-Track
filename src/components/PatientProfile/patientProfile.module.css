@@ -69,3 +69,19 @@
 .ctaBtn:hover {
   background-color: var(--color-teal-dark);
 }
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1.25rem;
+  }
+  .labResults {
+    display: none;
+  }
+}
+@media (max-width: 1028px) {
+  .card {
+    margin-bottom: 1.25rem;
+  }
+  .labResults {
+    display: none;
+  }
+}

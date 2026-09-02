@@ -27,10 +27,10 @@
 }
 
 @media (max-width: 768px) {
-  /* .diagnosis,
+  .diagnosis,
   .profile {
     display: none;
-  } */
+  }
 
   .patients {
     display: block;

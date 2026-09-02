@@ -24,7 +24,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 5px 0;
+  font-size: 11px;
 }
 .downloadIcon {
   cursor: pointer;

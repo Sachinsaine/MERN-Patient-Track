@@ -3,11 +3,13 @@ import { FiSearch, FiMoreVertical } from "react-icons/fi";
 import styles from "./patient.module.css";
 import { PatientContext } from "../../context/PatientContext";
 import { PatientsSkeleton } from "../PatientSkeleton/PatientsSkeleton";
+import { useNavigate } from "react-router-dom";
 
 export const Patients = () => {
   const { patients, loading, error, selectedPatient, setSelectedPatient } =
     useContext(PatientContext);
 
+  const navigate = useNavigate();
   if (loading) {
     return (
       <h1 className={styles.card}>
@@ -21,7 +23,11 @@ export const Patients = () => {
   }
 
   const handleSelectedPatient = (id) => {
-    setSelectedPatient(id);
+    if (window.innerWidth <= 768) {
+      navigate(`/patientDetails/${id}`);
+    } else {
+      setSelectedPatient(id);
+    }
   };
 
   return (

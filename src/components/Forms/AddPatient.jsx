@@ -1,87 +1,39 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 export const AddPatient = () => {
-  const [formdata, setFormdata] = useState({
-    firstname: "",
-    email: "",
-    phone: "",
+  const patientSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    // gender: z.string().min(1, "Gender is required"),
+    // age: z.coerce
+    //   .number()
+    //   .int("Age must be a whole number")
+    //   .min(1, "Age must be greater than 1")
+    //   .max(120, "Age must be less than or equal to 120"),
+    // date_of_birth: z.string().min(1, "Date of birth is required"),
+    // phone_number: z.string().min(10, "Enter valid phone number"),
+    // emergency_contact: z.string().min(10, "Enter valid emergency number"),
+    // insurance_type: z.string().min(1, "Insurance type is required"),
   });
-  const [errors, setErrors] = useState({});
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setFormdata({
-      ...formdata,
-      [name]: value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(patientSchema),
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errors = {};
-
-    if (formdata.firstname.trim() === "") {
-      errors.firstname = "Firstname is required";
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (formdata.email.trim() === "") {
-      errors.email = "Email is required";
-    } else if (!emailPattern.test(formdata.email)) {
-      errors.email = "Enter valid email";
-    }
-
-    if (formdata.phone.trim() === "") {
-      errors.phone = "Phone number is required";
-    } else if (formdata.phone.length < 10) {
-      errors.phone = "Enter valid phone number";
-    }
-
-    setErrors(errors);
-
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-    setFormdata({
-      firstname: "",
-      email: "",
-      phone: "",
-    });
-    console.log("Form is valid:", formdata);
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <input
-          type="text"
-          placeholder="firstname"
-          name="firstname"
-          value={formdata.firstname}
-          onChange={handleOnChange}
-        />
-        <div style={{ color: "red" }}>{errors.firstname}</div>
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="email"
-          name="email"
-          value={formdata.email}
-          onChange={handleOnChange}
-        />
-        <div style={{ color: "red" }}>{errors.email}</div>
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Phone number"
-          name="phone"
-          value={formdata.phone}
-          onChange={handleOnChange}
-        />
-        <div style={{ color: "red" }}>{errors.phone}</div>
+        <input type="text" {...register("name")} />
+        {errors.name && <div>{errors.name.message}</div>}
       </div>
       <button type="submit">sumbit</button>
     </form>

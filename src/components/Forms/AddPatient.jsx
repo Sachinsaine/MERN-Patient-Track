@@ -1,42 +1,87 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 export const AddPatient = () => {
-  const firstname = useRef();
-  const lastname = useRef();
-  const gender = useRef();
-  const age = useRef();
-  const phone = useRef();
+  const [formdata, setFormdata] = useState({
+    firstname: "",
+    email: "",
+    phone: "",
+  });
+  const [errors, setErrors] = useState({});
 
-  const handleSumbit = (e) => {
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormdata({
+      ...formdata,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(firstname.current.value);
-    console.log(lastname.current.value);
-    console.log(age.current.value);
-    console.log(gender.current.value);
-    console.log(phone.current.value);
+    const errors = {};
+
+    if (formdata.firstname.trim() === "") {
+      errors.firstname = "Firstname is required";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (formdata.email.trim() === "") {
+      errors.email = "Email is required";
+    } else if (!emailPattern.test(formdata.email)) {
+      errors.email = "Enter valid email";
+    }
+
+    if (formdata.phone.trim() === "") {
+      errors.phone = "Phone number is required";
+    } else if (formdata.phone.length < 10) {
+      errors.phone = "Enter valid phone number";
+    }
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+    setFormdata({
+      firstname: "",
+      email: "",
+      phone: "",
+    });
+    console.log("Form is valid:", formdata);
   };
 
   return (
-    <form onSubmit={handleSumbit}>
+    <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="">First Name</label>
-        <input type="tex" placeholder="First Name" ref={firstname} />
+        <input
+          type="text"
+          placeholder="firstname"
+          name="firstname"
+          value={formdata.firstname}
+          onChange={handleOnChange}
+        />
+        <div style={{ color: "red" }}>{errors.firstname}</div>
       </div>
       <div>
-        <label htmlFor=""> Last Name</label>
-        <input type="tex" placeholder="Last Name" ref={lastname} />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          value={formdata.email}
+          onChange={handleOnChange}
+        />
+        <div style={{ color: "red" }}>{errors.email}</div>
       </div>
       <div>
-        <label htmlFor="">Gender</label>
-        <input type="tex" placeholder="Gender" ref={gender} />
-      </div>
-      <div>
-        <label htmlFor="">Age</label>
-        <input type="tex" placeholder="Age" ref={age} />
-      </div>
-      <div>
-        <label htmlFor="">Phone number</label>
-        <input type="tex" placeholder="Phone number" ref={phone} />
+        <input
+          type="text"
+          placeholder="Phone number"
+          name="phone"
+          value={formdata.phone}
+          onChange={handleOnChange}
+        />
+        <div style={{ color: "red" }}>{errors.phone}</div>
       </div>
       <button type="submit">sumbit</button>
     </form>

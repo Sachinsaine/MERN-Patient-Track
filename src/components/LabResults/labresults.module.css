@@ -30,3 +30,14 @@
 .downloadIcon {
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .resultsCard {
+    height: auto;
+  }
+}
+@media (max-width: 1028px) {
+  .resultsCard {
+    height: auto;
+  }
+}

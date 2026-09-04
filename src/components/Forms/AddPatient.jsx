@@ -19,7 +19,13 @@ const patientSchema = z.object({
     .string()
     .min(1, "Emergency number is required")
     .regex(/^\d{10}$/, "Enter valid 10 digit number"),
-  profile_picture: z.string().min(1, "Image is required"),
+  profile_picture: z
+    .instanceof(FileList)
+    .refine((files) => files.length > 0, "Image is required")
+    .refine(
+      (files) => files[0]?.type.startsWith("image/"),
+      "Only image files are allowed",
+    ),
   insurance_type: z.string().min(1, "Insurance type is required"),
 });
 

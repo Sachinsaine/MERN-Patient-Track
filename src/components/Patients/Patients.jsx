@@ -12,7 +12,7 @@ export const Patients = () => {
   const [input, setInput] = useState("");
 
   const filterPatient = patients.filter((patient) =>
-    patient.name.toLowerCase().includes(input.toLowerCase()),
+    patient.name?.toLowerCase().includes(input.toLowerCase()),
   );
 
   const navigate = useNavigate();
@@ -39,10 +39,6 @@ export const Patients = () => {
   return (
     <div className={styles.card}>
       <div className={styles.headerRow}>
-        {/* <h2 className={styles.title}>Patients</h2> */}
-        {/* <button className={styles.searchBtn} aria-label="Search patients">
-          <FiSearch size={18} />
-        </button> */}
         <div className={styles.searchWrapper}>
           <FiSearch size={18} className={styles.searchIcon} />
 

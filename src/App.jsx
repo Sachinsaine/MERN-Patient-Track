@@ -15,10 +15,10 @@ function App() {
         <PatientContextProvider>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/patientInfo" element={<PatientInfo />} />
             <Route path="/patientDetails/:id" element={<PatientDetails />} />
-            <Route path="/overview" element={<Overview />} />
+            <Route path="/" element={<Overview />} />
             <Route path="/addPatient" element={<AddPatient />} />
           </Routes>
         </PatientContextProvider>

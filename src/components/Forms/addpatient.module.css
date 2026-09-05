@@ -1,0 +1,435 @@
+.page {
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+  background: var(--color-background);
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.pageHeader {
+  margin-bottom: 22px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 12px;
+
+  color: var(--color-muted);
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
+}
+
+.backButton:hover {
+  color: var(--color-teal);
+}
+
+.pageHeader h1 {
+  color: var(--color-navy);
+
+  font-size: 27px;
+  font-weight: 700;
+
+  margin: 0;
+}
+
+.pageHeader p {
+  margin-top: 6px;
+
+  color: var(--color-muted);
+
+  font-size: 14px;
+}
+
+/* =========================
+   FORM CARD
+========================= */
+
+.formCard {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  background: #ffffff;
+
+  border-radius: var(--radius-card);
+
+  box-shadow: var(--shadow-card);
+
+  overflow: hidden;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+  padding: 25px 30px;
+
+  border-bottom: 1px solid #edf0f4;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-bottom: 24px;
+}
+
+.sectionIcon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #e7f7f5;
+  color: var(--color-teal);
+
+  flex-shrink: 0;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+
+  color: var(--color-navy);
+
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.sectionHeader p {
+  margin-top: 4px;
+
+  color: var(--color-muted);
+
+  font-size: 13px;
+}
+
+/* =========================
+   FORM GRID
+========================= */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px 24px;
+}
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  margin-bottom: 8px;
+
+  color: #344054;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.formGroup label span {
+  margin-left: 3px;
+
+  color: #ef4444;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 14px;
+
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #26364d;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.formGroup input::placeholder {
+  color: #a1a9b4;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--color-teal);
+
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
+}
+
+.formGroup select {
+  cursor: pointer;
+}
+
+/* =========================
+   INPUT WITH ICON
+========================= */
+
+.inputWithIcon {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.inputWithIcon svg {
+  position: absolute;
+  left: 14px;
+
+  color: #9aa3af;
+
+  pointer-events: none;
+}
+
+.inputWithIcon input {
+  padding-left: 42px;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+.formGroup small {
+  margin-top: 6px;
+
+  color: #ef4444;
+
+  font-size: 12px;
+}
+
+.errorInput {
+  border-color: #ef4444 !important;
+}
+
+.errorInput:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+}
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+.uploadBox {
+  min-height: 145px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 25px;
+
+  border: 1.5px dashed #cbd5df;
+  border-radius: 13px;
+
+  background: #fafcfc;
+
+  color: var(--color-muted);
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.uploadBox:hover {
+  border-color: var(--color-teal);
+  background: #f3fbfa;
+}
+
+.uploadBox svg {
+  margin-bottom: 4px;
+
+  color: var(--color-teal);
+}
+
+.uploadBox strong {
+  color: #344054;
+
+  font-size: 14px;
+}
+
+.uploadBox span {
+  font-size: 12px;
+}
+
+.uploadBox input {
+  display: none;
+}
+
+.uploadError {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #ef4444;
+
+  font-size: 12px;
+}
+
+/* =========================
+   FORM FOOTER
+========================= */
+
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 20px 30px;
+
+  background: #fbfcfd;
+}
+
+/* Cancel */
+
+.cancelButton {
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 20px;
+
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #667085;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: background 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: #f5f6f8;
+}
+
+/* Submit */
+
+.submitButton {
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 0 22px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--color-teal);
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.submitButton:hover {
+  background: var(--color-teal-dark);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 15px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 22px 20px;
+  }
+
+  .formFooter {
+    padding: 18px 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .pageHeader h1 {
+    font-size: 23px;
+  }
+
+  .formFooter {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+  }
+}

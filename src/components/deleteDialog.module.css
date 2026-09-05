@@ -1,0 +1,86 @@
+.dialog {
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  border-radius: 14px !important;
+  padding: 0;
+  overflow: hidden;
+}
+
+.content {
+  padding: 28px;
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.cancelButton,
+.deleteButton {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.cancelButton:hover {
+  background: #e5e7eb;
+}
+
+.deleteButton {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.deleteButton:hover {
+  background: #b91c1c;
+}
+
+.cancelButton:active,
+.deleteButton:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 22px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancelButton,
+  .deleteButton {
+    width: 100%;
+  }
+}

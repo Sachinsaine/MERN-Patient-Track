@@ -4,10 +4,17 @@ import styles from "./patient.module.css";
 import { PatientContext } from "../../context/PatientContext";
 import { PatientsSkeleton } from "../PatientSkeleton/PatientsSkeleton";
 import { useNavigate } from "react-router-dom";
+import { DeleteDialog } from "../DeleteDialog";
 
 export const Patients = () => {
-  const { patients, loading, error, selectedPatient, setSelectedPatient } =
-    useContext(PatientContext);
+  const {
+    patients,
+    loading,
+    error,
+    selectedPatient,
+    setSelectedPatient,
+    setOpen,
+  } = useContext(PatientContext);
 
   const [input, setInput] = useState("");
 
@@ -36,6 +43,13 @@ export const Patients = () => {
     }
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className={styles.card}>
       <div className={styles.headerRow}>
@@ -58,20 +72,26 @@ export const Patients = () => {
             <li key={patient._id}>
               <button
                 className={`${styles.row} ${isActive ? styles.rowActive : ""}`}
-                onClick={() => handleSelectedPatient(patient._id)}
               >
                 <img
                   src={patient.profile_picture}
                   alt={patient.name}
                   className={styles.avatar}
                 />
-                <div className={styles.info}>
+                <div
+                  className={styles.info}
+                  onClick={() => handleSelectedPatient(patient._id)}
+                >
                   <p className={styles.name}>{patient.name}</p>
                   <p className={styles.meta}>
                     {patient.gender}, {patient.age}
                   </p>
                 </div>
-                <span className={styles.moreBtn} aria-label="More options">
+                <span
+                  className={styles.moreBtn}
+                  aria-label="More options"
+                  onClick={handleOpen}
+                >
                   <FiMoreVertical size={16} />
                 </span>
               </button>
@@ -79,6 +99,7 @@ export const Patients = () => {
           );
         })}
       </ul>
+      <DeleteDialog open={handleOpen} close={handleClose} />
     </div>
   );
 };

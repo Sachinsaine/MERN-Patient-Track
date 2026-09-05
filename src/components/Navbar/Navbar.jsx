@@ -12,8 +12,8 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./navabar.module.css";
 
 const NAV_ITEMS = [
-  { label: "Overview", icon: FiHome, path: "/overview" },
-  { label: "Patients", icon: FiUsers, path: "/" },
+  { label: "Overview", icon: FiHome, path: "/" },
+  { label: "Patients", icon: FiUsers, path: "/dashboard" },
   { label: "Schedule", icon: FiCalendar, path: "/schedule" },
   { label: "Message", icon: FiMessageSquare, path: "/message" },
   { label: "Transactions", icon: FiCreditCard, path: "/transaction" },

@@ -9,11 +9,17 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const multer = require("multer");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const storage = multer.memoryStorage();
+
+const upload = multer({
+  storage,
+});
 
 const connectDB = require("./config/db");
 
@@ -83,17 +89,41 @@ app.get("/api/patient/:id", async (req, res) => {
 });
 
 // CREATE NEW PATIENT
-app.post("/api/patient", async (req, res) => {
-  try {
-    console.log("Received patient:", req.body);
+// app.post("/api/patient", async (req, res) => {
+//   try {
+//     console.log("Received patient:", req.body);
 
-    const patient = new Patient(req.body);
+//     const patient = new Patient(req.body);
+
+//     const savedPatient = await patient.save();
+
+//     res.status(201).json(savedPatient);
+//   } catch (error) {
+//     console.error(error);
+
+//     res.status(500).json({
+//       message: "Failed to create patient",
+//       error: error.message,
+//     });
+//   }
+// });
+
+app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
+  try {
+    console.log("========== ADD PATIENT ==========");
+    console.log("Received body:", req.body);
+    console.log("Received file:", req.file);
+
+    const patient = new Patient({
+      ...req.body,
+      profile_picture: req.file ? req.file.originalname : "",
+    });
 
     const savedPatient = await patient.save();
 
     res.status(201).json(savedPatient);
   } catch (error) {
-    console.error(error);
+    console.error("CREATE PATIENT ERROR:", error);
 
     res.status(500).json({
       message: "Failed to create patient",

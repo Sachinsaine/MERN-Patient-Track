@@ -5,7 +5,7 @@ import { z } from "zod";
 const patientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
   age: z.coerce
-    .number()
+    .number({ message: "Age is required" })
     .int("Age must be whole number")
     .min(1, "Age must be at least 1")
     .max(120, "Age must be less than or equal to 120"),
@@ -48,8 +48,36 @@ export const AddPatient = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const formdata = new FormData();
+
+    formdata.append("name", data.name);
+    formdata.append("age", data.age);
+    formdata.append("gender", data.gender);
+    formdata.append("date_of_birth", data.date_of_birth);
+    formdata.append("phone_number", data.phone_number);
+    formdata.append("emergency_contact", data.emergency_contact);
+    formdata.append("profile_picture", data.profile_picture[0]);
+    formdata.append("insurance_type", data.insurance_type);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/patient`,
+        {
+          method: "POST",
+          body: formdata,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to add patient");
+      }
+
+      const patientData = await response.json();
+      console.log("Patient Added:", patientData);
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   return (
@@ -63,7 +91,7 @@ export const AddPatient = () => {
         {errors.age && <div>{errors.age.message}</div>}
       </div>
       <div>
-        <select {...register("gender")} placeholder="gender">
+        <select {...register("gender")}>
           <option value="">Select gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>

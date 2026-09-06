@@ -13,6 +13,7 @@ export const Patients = () => {
     error,
     selectedPatient,
     setSelectedPatient,
+    open,
     setOpen,
   } = useContext(PatientContext);
 
@@ -23,6 +24,8 @@ export const Patients = () => {
   const filterPatient = patients.filter((patient) =>
     patient.name?.toLowerCase().includes(input.toLowerCase()),
   );
+
+  console.log(patients);
 
   const navigate = useNavigate();
   if (loading) {
@@ -43,6 +46,7 @@ export const Patients = () => {
     } else {
       setSelectedPatient(id);
     }
+    console.log(id);
   };
 
   const handleOpen = (id) => {
@@ -53,7 +57,7 @@ export const Patients = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   return (
     <div className={styles.card}>
       <div className={styles.headerRow}>
@@ -107,7 +111,7 @@ export const Patients = () => {
         })}
       </ul>
       <DeleteDialog
-        open={handleOpen}
+        open={open}
         close={handleClose}
         patientDelete={patientDelete}
       />

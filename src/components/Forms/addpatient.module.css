@@ -5,10 +5,6 @@
   background: var(--color-background);
 }
 
-/* =========================
-   PAGE HEADER
-========================= */
-
 .pageHeader {
   margin-bottom: 22px;
 }
@@ -50,10 +46,6 @@
   font-size: 14px;
 }
 
-/* =========================
-   FORM CARD
-========================= */
-
 .formCard {
   width: 100%;
   max-width: 1100px;
@@ -67,10 +59,6 @@
 
   overflow: hidden;
 }
-
-/* =========================
-   SECTION
-========================= */
 
 .section {
   padding: 25px 30px;
@@ -119,20 +107,12 @@
   font-size: 13px;
 }
 
-/* =========================
-   FORM GRID
-========================= */
-
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
   gap: 20px 24px;
 }
-
-/* =========================
-   FORM GROUP
-========================= */
 
 .formGroup {
   display: flex;
@@ -153,10 +133,6 @@
 
   color: #ef4444;
 }
-
-/* =========================
-   INPUTS
-========================= */
 
 .formGroup input,
 .formGroup select {
@@ -197,10 +173,6 @@
   cursor: pointer;
 }
 
-/* =========================
-   INPUT WITH ICON
-========================= */
-
 .inputWithIcon {
   position: relative;
 
@@ -221,10 +193,6 @@
   padding-left: 42px;
 }
 
-/* =========================
-   ERROR
-========================= */
-
 .formGroup small {
   margin-top: 6px;
 
@@ -240,10 +208,6 @@
 .errorInput:focus {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
 }
-
-/* =========================
-   FILE UPLOAD
-========================= */
 
 .uploadBox {
   min-height: 145px;
@@ -306,10 +270,6 @@
   font-size: 12px;
 }
 
-/* =========================
-   FORM FOOTER
-========================= */
-
 .formFooter {
   display: flex;
   justify-content: flex-end;
@@ -321,8 +281,6 @@
 
   background: #fbfcfd;
 }
-
-/* Cancel */
 
 .cancelButton {
   height: 44px;
@@ -351,8 +309,6 @@
 .cancelButton:hover {
   background: #f5f6f8;
 }
-
-/* Submit */
 
 .submitButton {
   height: 44px;
@@ -396,13 +352,10 @@
   cursor: not-allowed;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
 @media (max-width: 768px) {
   .page {
-    padding: 15px;
+    padding: 0px;
+    margin-bottom: 4rem;
   }
 
   .formGrid {

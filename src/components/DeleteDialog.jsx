@@ -9,7 +9,6 @@ export const DeleteDialog = ({ close, patientDelete }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(setPatients);
 
   const handleDelete = async () => {
     try {

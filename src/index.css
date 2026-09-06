@@ -1,9 +1,5 @@
 @import "tailwindcss";
-/* ---------------------------------------------------
-   Tech.Care design tokens
-   Mirrors tailwind.config.js so raw CSS / inline styles
-   can reference the same palette as the Tailwind classes.
---------------------------------------------------- */
+
 :root {
   --color-background: #f6f7f8;
 
@@ -54,10 +50,7 @@ body {
   padding: 1rem;
 }
 
-/* ---------------------------------------------------
-   Shared component patterns
---------------------------------------------------- */
-.card {
+-------------------------------------------- */ .card {
   background: #ffffff;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
@@ -149,9 +142,6 @@ body {
   background-color: var(--color-tile-pink);
 }
 
-/* ---------------------------------------------------
-   Scrollbars
---------------------------------------------------- */
 ::-webkit-scrollbar {
   width: 6px;
 }

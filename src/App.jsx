@@ -7,6 +7,7 @@ import { PatientInfo } from "./components/PatientInfo/PatientInfo";
 import { PatientDetails } from "./components/PatientDetails/PatientDetails";
 import { Overview } from "./components/Overview/Overview";
 import { AddPatient } from "./components/Forms/AddPatient";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Overview />} />
             <Route path="/addPatient" element={<AddPatient />} />
           </Routes>
+          <Footer />
         </PatientContextProvider>
       </BrowserRouter>
     </>

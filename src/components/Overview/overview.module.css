@@ -1,14 +1,9 @@
 .overview {
   width: 100%;
   min-height: 100%;
-  padding: 20px;
   background: #f1f3f3;
   box-sizing: border-box;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header {
   display: flex;
@@ -33,10 +28,6 @@
   font-size: 15px;
   line-height: 1.4;
 }
-
-/* =========================
-   HEADER ACTIONS
-========================= */
 
 .headerActions {
   display: flex;
@@ -91,20 +82,12 @@
   background: #0fa99d;
 }
 
-/* =========================
-   STAT GRID
-========================= */
-
 .statsGrid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
-
-/* =========================
-   STAT CARD
-========================= */
 
 .statCard {
   min-height: 192px;
@@ -132,8 +115,6 @@
   margin-bottom: 17px;
 }
 
-/* Icon backgrounds */
-
 .blueIcon {
   background: #e4f3fc;
   color: #087bbb;
@@ -153,10 +134,6 @@
   background: #f0eaff;
   color: #7943ee;
 }
-
-/* =========================
-   CARD TEXT
-========================= */
 
 .cardTitle {
   margin: 0 0 10px;
@@ -188,10 +165,6 @@
   font-size: 13px;
   font-weight: 400;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 1100px) {
   .statsGrid {

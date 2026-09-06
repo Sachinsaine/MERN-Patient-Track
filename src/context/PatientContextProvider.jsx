@@ -5,7 +5,7 @@ import { usePatients } from "../hooks/usePatients";
 import { useEffect, useState } from "react";
 
 export const PatientContextProvider = ({ children }) => {
-  const { patients, loading, error } = usePatients();
+  const { patients, loading, error, setPatients } = usePatients();
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [open, setOpen] = useState(false);
   const patient = patients.find((patient) => patient._id === selectedPatient);
@@ -20,6 +20,7 @@ export const PatientContextProvider = ({ children }) => {
     patients,
     loading,
     error,
+    setPatients,
     patient,
     selectedPatient,
     setSelectedPatient,

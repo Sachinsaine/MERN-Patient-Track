@@ -18,6 +18,8 @@ export const Patients = () => {
 
   const [input, setInput] = useState("");
 
+  const [patientDelete, setPatientDelete] = useState(null);
+
   const filterPatient = patients.filter((patient) =>
     patient.name?.toLowerCase().includes(input.toLowerCase()),
   );
@@ -43,13 +45,15 @@ export const Patients = () => {
     }
   };
 
-  const handleOpen = () => {
+  const handleOpen = (id) => {
     setOpen(true);
+    setPatientDelete(id);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+  
   return (
     <div className={styles.card}>
       <div className={styles.headerRow}>
@@ -90,7 +94,10 @@ export const Patients = () => {
                 <span
                   className={styles.moreBtn}
                   aria-label="More options"
-                  onClick={handleOpen}
+                  onClick={(e) => {
+                    e.stopPropagation;
+                    handleOpen(patient._id);
+                  }}
                 >
                   <FiMoreVertical size={16} />
                 </span>
@@ -99,7 +106,11 @@ export const Patients = () => {
           );
         })}
       </ul>
-      <DeleteDialog open={handleOpen} close={handleClose} />
+      <DeleteDialog
+        open={handleOpen}
+        close={handleClose}
+        patientDelete={patientDelete}
+      />
     </div>
   );
 };

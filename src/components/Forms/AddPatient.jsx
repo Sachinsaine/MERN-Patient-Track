@@ -13,6 +13,8 @@ import {
 import { Link } from "react-router-dom";
 
 import styles from "./addpatient.module.css";
+import { useContext } from "react";
+import { PatientContext } from "../../context/PatientContext";
 
 const patientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
@@ -51,9 +53,11 @@ const patientSchema = z.object({
 });
 
 export const AddPatient = () => {
+  const { setPatients, loading, error } = useContext(PatientContext);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(patientSchema),
@@ -97,11 +101,22 @@ export const AddPatient = () => {
 
       const patientData = await response.json();
 
+      setPatients((prev) => [...prev, patientData]);
+
+      reset();
       console.log("Patient Added:", patientData);
     } catch (error) {
       console.log("Error:", error);
     }
   };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   return (
     <main className={styles.page}>

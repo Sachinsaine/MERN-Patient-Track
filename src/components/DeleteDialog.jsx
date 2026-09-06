@@ -3,11 +3,35 @@ import { useContext } from "react";
 import { PatientContext } from "../context/PatientContext";
 import styles from "./deleteDialog.module.css";
 
-export const DeleteDialog = () => {
-  const { open, setOpen } = useContext(PatientContext);
+export const DeleteDialog = ({ close, patientDelete }) => {
+  const { open, setOpen, setPatients } = useContext(PatientContext);
 
   const handleClose = () => {
     setOpen(false);
+  };
+  console.log(setPatients);
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/patient/${patientDelete}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete patient");
+      }
+
+      setPatients((prev) =>
+        prev.filter((patient) => patient._id !== patientDelete),
+      );
+
+      close();
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   return (
@@ -35,7 +59,11 @@ export const DeleteDialog = () => {
             Cancel
           </button>
 
-          <button type="button" className={styles.deleteButton}>
+          <button
+            type="button"
+            className={styles.deleteButton}
+            onClick={handleDelete}
+          >
             Delete
           </button>
         </div>

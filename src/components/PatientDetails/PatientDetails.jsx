@@ -4,6 +4,7 @@ import { PatientProfile } from "../PatientProfile/PatientProfile";
 import { useContext, useEffect } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { LabResults } from "../LabResults/LabResults";
+import { motion } from "motion/react";
 
 export const PatientDetails = () => {
   const { id } = useParams();
@@ -14,10 +15,14 @@ export const PatientDetails = () => {
   }, [id, setSelectedPatient]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <PatientProfile />
       <DiagnosisHistory />
       <LabResults />
-    </div>
+    </motion.div>
   );
 };

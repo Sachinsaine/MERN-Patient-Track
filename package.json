@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^5.9.1",
     "@mui/material": "^9.4.0",
     "@tailwindcss/vite": "^4.3.3",
+    "motion": "^13.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.87.0",

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./overview.module.css";
 
 import {
-  FiSearch,
+  // FiSearch,
   FiUserPlus,
   FiUsers,
   FiCalendar,
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
+import { motion } from "motion/react";
 
 export const Overview = () => {
   const { patients } = useContext(PatientContext);
@@ -49,27 +50,32 @@ export const Overview = () => {
   ];
 
   return (
-    <main className={styles.overview}>
-      <section className={styles.header}>
-        <div className={styles.welcome}>
-          <p className={styles.greeting}>Sunday, September 6</p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <main className={styles.overview}>
+        <section className={styles.header}>
+          <div className={styles.welcome}>
+            <p className={styles.greeting}>Sunday, September 6</p>
 
-          <h1>
-            Good morning, <span>Dr. Simmons</span>
-          </h1>
+            <h1>
+              Good morning, <span>Dr. Simmons</span>
+            </h1>
 
-          <p className={styles.subtitle}>
-            Here's what's happening across your practice today.
-          </p>
-        </div>
+            <p className={styles.subtitle}>
+              Here's what's happening across your practice today.
+            </p>
+          </div>
 
-        <Link to="/addPatient" className={styles.addPatientBtn}>
-          <FiUserPlus size={19} />
-          <span>Add Patient</span>
-        </Link>
-      </section>
+          <Link to="/addPatient" className={styles.addPatientBtn}>
+            <FiUserPlus size={19} />
+            <span>Add Patient</span>
+          </Link>
+        </section>
 
-      {/* <div className={styles.searchBox}>
+        {/* <div className={styles.searchBox}>
         <FiSearch size={20} />
 
         <input
@@ -79,36 +85,37 @@ export const Overview = () => {
         />
       </div> */}
 
-      <div className={styles.sectionHeader}>
-        <div>
-          <h2>Practice Overview</h2>
-          <p>Your practice performance today</p>
+        <div className={styles.sectionHeader}>
+          <div>
+            <h2>Practice Overview</h2>
+            <p>Your practice performance today</p>
+          </div>
         </div>
-      </div>
 
-      <section className={styles.statsGrid}>
-        {stats.map((item) => {
-          const Icon = item.icon;
+        <section className={styles.statsGrid}>
+          {stats.map((item) => {
+            const Icon = item.icon;
 
-          return (
-            <article className={styles.statCard} key={item.title}>
-              <div className={styles.cardTop}>
-                <div className={`${styles.iconBox} ${item.iconClass}`}>
-                  <Icon size={21} />
+            return (
+              <article className={styles.statCard} key={item.title}>
+                <div className={styles.cardTop}>
+                  <div className={`${styles.iconBox} ${item.iconClass}`}>
+                    <Icon size={21} />
+                  </div>
+
+                  <FiArrowUpRight className={styles.arrowIcon} size={18} />
                 </div>
 
-                <FiArrowUpRight className={styles.arrowIcon} size={18} />
-              </div>
+                <p className={styles.cardTitle}>{item.title}</p>
 
-              <p className={styles.cardTitle}>{item.title}</p>
+                <h2>{item.value}</h2>
 
-              <h2>{item.value}</h2>
-
-              <span className={styles.cardChange}>{item.change}</span>
-            </article>
-          );
-        })}
-      </section>
-    </main>
+                <span className={styles.cardChange}>{item.change}</span>
+              </article>
+            );
+          })}
+        </section>
+      </main>
+    </motion.div>
   );
 };

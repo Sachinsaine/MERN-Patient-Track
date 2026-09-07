@@ -13,6 +13,7 @@ import { PatientContext } from "../../context/PatientContext";
 import { Link } from "react-router-dom";
 import { LabResults } from "../LabResults/LabResults";
 import { ProfileSkeleton } from "../ProfileSkeleton/ProfileSkeleton";
+import { motion } from "motion/react";
 
 export const PatientProfile = () => {
   const { loading, patient } = useContext(PatientContext);
@@ -30,7 +31,11 @@ export const PatientProfile = () => {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className={styles.card}>
         <img
           src={patient.profile_picture}
@@ -94,6 +99,6 @@ export const PatientProfile = () => {
       <div className={styles.labResults}>
         <LabResults />
       </div>
-    </div>
+    </motion.div>
   );
 };

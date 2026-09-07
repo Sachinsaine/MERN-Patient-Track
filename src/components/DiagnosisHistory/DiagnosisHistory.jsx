@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import { DiagnosticList } from "../DiagnosticList/DiagnosticList";
 import { DiagnosisHistorySkeleton } from "../DiagnosisHistorySkeleton/DiagnosisHistorySkeleton";
+import { motion } from "motion/react";
 
 export const DiagnosisHistory = () => {
   const { patient, loading } = useContext(PatientContext);
@@ -56,212 +57,218 @@ export const DiagnosisHistory = () => {
     }));
 
   return (
-    <div className={styles.mainCont}>
-      <div className={styles.wrapper}>
-        <h2 className={styles.heading}>Diagnosis History</h2>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className={styles.mainCont}>
+        <div className={styles.wrapper}>
+          <h2 className={styles.heading}>Diagnosis History</h2>
 
-        <div className={styles.chartCard}>
-          <div className={styles.chartArea}>
-            <div className={styles.chartHeaderRow}>
-              <p className={styles.chartTitle}>Blood Pressure</p>
+          <div className={styles.chartCard}>
+            <div className={styles.chartArea}>
+              <div className={styles.chartHeaderRow}>
+                <p className={styles.chartTitle}>Blood Pressure</p>
 
-              <span className={styles.range}>
-                Last 6 months <span className={styles.arrow}>▼</span>
-              </span>
+                <span className={styles.range}>
+                  Last 6 months <span className={styles.arrow}>▼</span>
+                </span>
+              </div>
+
+              <div className={styles.chartWrapper}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={bloodPressureData}
+                    margin={{
+                      top: 10,
+                      right: 10,
+                      left: 0,
+                      bottom: 0,
+                    }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      vertical={false}
+                      stroke="#cfd0db"
+                      strokeWidth={1}
+                      opacity={1}
+                    />
+
+                    <XAxis
+                      dataKey="month"
+                      tick={{
+                        fontSize: 11,
+                        fill: "#8a93a6",
+                      }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickMargin={10}
+                    />
+
+                    <YAxis
+                      domain={[60, 180]}
+                      ticks={[60, 80, 100, 120, 140, 160, 180]}
+                      tick={{
+                        fontSize: 11,
+                        fill: "#8a93a6",
+                      }}
+                      axisLine={false}
+                      tickLine={false}
+                      tickMargin={8}
+                      width={35}
+                    />
+
+                    <Tooltip
+                      cursor={{
+                        stroke: "#d9d4ee",
+                        strokeWidth: 1,
+                      }}
+                      contentStyle={{
+                        border: "none",
+                        borderRadius: "10px",
+                        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.12)",
+                        fontSize: "12px",
+                      }}
+                      labelStyle={{
+                        fontWeight: 600,
+                        color: "#072635",
+                        marginBottom: "4px",
+                      }}
+                    />
+
+                    <Line
+                      type="monotone"
+                      dataKey="systolic"
+                      name="Systolic"
+                      stroke="var(--color-chart-systolic)"
+                      strokeWidth={3}
+                      dot={{
+                        r: 4,
+                        strokeWidth: 2,
+                        fill: "#ffffff",
+                      }}
+                      activeDot={{
+                        r: 6,
+                      }}
+                    />
+
+                    <Line
+                      type="monotone"
+                      dataKey="diastolic"
+                      name="Diastolic"
+                      stroke="var(--color-chart-diastolic)"
+                      strokeWidth={3}
+                      dot={{
+                        r: 4,
+                        strokeWidth: 2,
+                        fill: "#ffffff",
+                      }}
+                      activeDot={{
+                        r: 6,
+                      }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            <div className={styles.chartWrapper}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={bloodPressureData}
-                  margin={{
-                    top: 10,
-                    right: 10,
-                    left: 0,
-                    bottom: 0,
-                  }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    stroke="#cfd0db"
-                    strokeWidth={1}
-                    opacity={1}
-                  />
+            <div className={styles.legend}>
+              <div className={styles.legendItem}>
+                <div className={styles.legendLabel}>
+                  <span className={`${styles.dot} ${styles.dotPink}`} />
+                  <span>Systolic</span>
+                </div>
 
-                  <XAxis
-                    dataKey="month"
-                    tick={{
-                      fontSize: 11,
-                      fill: "#8a93a6",
-                    }}
-                    axisLine={false}
-                    tickLine={false}
-                    tickMargin={10}
-                  />
+                <p className={styles.legendValue}>{systolic}</p>
 
-                  <YAxis
-                    domain={[60, 180]}
-                    ticks={[60, 80, 100, 120, 140, 160, 180]}
-                    tick={{
-                      fontSize: 11,
-                      fill: "#8a93a6",
-                    }}
-                    axisLine={false}
-                    tickLine={false}
-                    tickMargin={8}
-                    width={35}
-                  />
+                <p className={styles.legendSub}>
+                  {systolicLevel === "Lower than Average" && "▼ "}
+                  {systolicLevel === "Higher than Average" && "▲ "}
+                  {systolicLevel}
+                </p>
+              </div>
 
-                  <Tooltip
-                    cursor={{
-                      stroke: "#d9d4ee",
-                      strokeWidth: 1,
-                    }}
-                    contentStyle={{
-                      border: "none",
-                      borderRadius: "10px",
-                      boxShadow: "0 4px 15px rgba(0, 0, 0, 0.12)",
-                      fontSize: "12px",
-                    }}
-                    labelStyle={{
-                      fontWeight: 600,
-                      color: "#072635",
-                      marginBottom: "4px",
-                    }}
-                  />
+              <div className={styles.divider} />
 
-                  <Line
-                    type="monotone"
-                    dataKey="systolic"
-                    name="Systolic"
-                    stroke="var(--color-chart-systolic)"
-                    strokeWidth={3}
-                    dot={{
-                      r: 4,
-                      strokeWidth: 2,
-                      fill: "#ffffff",
-                    }}
-                    activeDot={{
-                      r: 6,
-                    }}
-                  />
+              <div className={styles.legendItem}>
+                <div className={styles.legendLabel}>
+                  <span className={`${styles.dot} ${styles.dotPurple}`} />
+                  <span>Diastolic</span>
+                </div>
 
-                  <Line
-                    type="monotone"
-                    dataKey="diastolic"
-                    name="Diastolic"
-                    stroke="var(--color-chart-diastolic)"
-                    strokeWidth={3}
-                    dot={{
-                      r: 4,
-                      strokeWidth: 2,
-                      fill: "#ffffff",
-                    }}
-                    activeDot={{
-                      r: 6,
-                    }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+                <p className={styles.legendValue}>{diastolic}</p>
+
+                <p className={styles.legendSub}>
+                  {diastolicLevel === "Lower than Average" && "▼ "}
+                  {diastolicLevel === "Higher than Average" && "▲ "}
+                  {diastolicLevel}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className={styles.legend}>
-            <div className={styles.legendItem}>
-              <div className={styles.legendLabel}>
-                <span className={`${styles.dot} ${styles.dotPink}`} />
-                <span>Systolic</span>
+          <div className={styles.vitalsGrid}>
+            <div className={`${styles.vitalTile} ${styles.tileBlue}`}>
+              <div className={styles.tileIcon}>
+                <FaLungs size={22} color="#3aa9dc" />
               </div>
 
-              <p className={styles.legendValue}>{systolic}</p>
+              <p className={styles.tileValue}>
+                {respiratoryRate}
+                <span className={styles.tileUnit}> breaths/min</span>
+              </p>
 
-              <p className={styles.legendSub}>
-                {systolicLevel === "Lower than Average" && "▼ "}
-                {systolicLevel === "Higher than Average" && "▲ "}
-                {systolicLevel}
+              <p className={styles.tileLabel}>Respiratory Rate</p>
+
+              <p className={styles.tileStatus}>
+                {respiratoryRateLevel === "Lower than Average" && "▼ "}
+                {respiratoryRateLevel === "Higher than Average" && "▲ "}
+                {respiratoryRateLevel}
               </p>
             </div>
 
-            <div className={styles.divider} />
-
-            <div className={styles.legendItem}>
-              <div className={styles.legendLabel}>
-                <span className={`${styles.dot} ${styles.dotPurple}`} />
-                <span>Diastolic</span>
+            <div className={`${styles.vitalTile} ${styles.tileRed}`}>
+              <div className={styles.tileIcon}>
+                <FiThermometer size={22} color="#e05a5a" />
               </div>
 
-              <p className={styles.legendValue}>{diastolic}</p>
+              <p className={styles.tileValue}>
+                {temperature}
+                <span className={styles.temperatureUnit}>°F</span>
+              </p>
 
-              <p className={styles.legendSub}>
-                {diastolicLevel === "Lower than Average" && "▼ "}
-                {diastolicLevel === "Higher than Average" && "▲ "}
-                {diastolicLevel}
+              <p className={styles.tileLabel}>Temperature</p>
+
+              <p className={styles.tileStatus}>
+                {temperatureLevel === "Lower than Average" && "▼ "}
+                {temperatureLevel === "Higher than Average" && "▲ "}
+                {temperatureLevel}
+              </p>
+            </div>
+
+            <div className={`${styles.vitalTile} ${styles.tilePink}`}>
+              <div className={styles.tileIcon}>
+                <FaHeartPulse size={22} color="#e0559a" />
+              </div>
+
+              <p className={styles.tileValue}>
+                {heartRate}
+                <span className={styles.tileUnit}> bpm</span>
+              </p>
+
+              <p className={styles.tileLabel}>Heart Rate</p>
+
+              <p className={styles.tileStatus}>
+                {heartRateLevel === "Lower than Average" && "▼ "}
+                {heartRateLevel === "Higher than Average" && "▲ "}
+                {heartRateLevel}
               </p>
             </div>
           </div>
         </div>
-
-        <div className={styles.vitalsGrid}>
-          <div className={`${styles.vitalTile} ${styles.tileBlue}`}>
-            <div className={styles.tileIcon}>
-              <FaLungs size={22} color="#3aa9dc" />
-            </div>
-
-            <p className={styles.tileValue}>
-              {respiratoryRate}
-              <span className={styles.tileUnit}> breaths/min</span>
-            </p>
-
-            <p className={styles.tileLabel}>Respiratory Rate</p>
-
-            <p className={styles.tileStatus}>
-              {respiratoryRateLevel === "Lower than Average" && "▼ "}
-              {respiratoryRateLevel === "Higher than Average" && "▲ "}
-              {respiratoryRateLevel}
-            </p>
-          </div>
-
-          <div className={`${styles.vitalTile} ${styles.tileRed}`}>
-            <div className={styles.tileIcon}>
-              <FiThermometer size={22} color="#e05a5a" />
-            </div>
-
-            <p className={styles.tileValue}>
-              {temperature}
-              <span className={styles.temperatureUnit}>°F</span>
-            </p>
-
-            <p className={styles.tileLabel}>Temperature</p>
-
-            <p className={styles.tileStatus}>
-              {temperatureLevel === "Lower than Average" && "▼ "}
-              {temperatureLevel === "Higher than Average" && "▲ "}
-              {temperatureLevel}
-            </p>
-          </div>
-
-          <div className={`${styles.vitalTile} ${styles.tilePink}`}>
-            <div className={styles.tileIcon}>
-              <FaHeartPulse size={22} color="#e0559a" />
-            </div>
-
-            <p className={styles.tileValue}>
-              {heartRate}
-              <span className={styles.tileUnit}> bpm</span>
-            </p>
-
-            <p className={styles.tileLabel}>Heart Rate</p>
-
-            <p className={styles.tileStatus}>
-              {heartRateLevel === "Lower than Average" && "▼ "}
-              {heartRateLevel === "Higher than Average" && "▲ "}
-              {heartRateLevel}
-            </p>
-          </div>
-        </div>
+        <DiagnosticList />
       </div>
-      <DiagnosticList />
-    </div>
+    </motion.div>
   );
 };

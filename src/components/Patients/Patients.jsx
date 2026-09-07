@@ -26,8 +26,6 @@ export const Patients = () => {
     patient.name?.toLowerCase().includes(input.toLowerCase()),
   );
 
-  console.log(patients);
-
   const navigate = useNavigate();
   if (loading) {
     return (

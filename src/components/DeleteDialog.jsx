@@ -2,6 +2,7 @@ import { Dialog } from "@mui/material";
 import { useContext } from "react";
 import { PatientContext } from "../context/PatientContext";
 import styles from "./deleteDialog.module.css";
+import { toast } from "react-toastify";
 
 export const DeleteDialog = ({ close, patientDelete }) => {
   const { open, setOpen, setPatients } = useContext(PatientContext);
@@ -26,6 +27,8 @@ export const DeleteDialog = ({ close, patientDelete }) => {
       setPatients((prev) =>
         prev.filter((patient) => patient._id !== patientDelete),
       );
+
+      toast.error("Patient Deleted Successfully!");
 
       close();
     } catch (error) {

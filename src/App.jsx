@@ -8,6 +8,7 @@ import { PatientDetails } from "./components/PatientDetails/PatientDetails";
 import { Overview } from "./components/Overview/Overview";
 import { AddPatient } from "./components/Forms/AddPatient";
 import { Footer } from "./components/Footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Footer />
         </PatientContextProvider>
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 }

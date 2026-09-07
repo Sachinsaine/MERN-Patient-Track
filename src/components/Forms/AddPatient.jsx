@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import styles from "./addpatient.module.css";
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
+import { toast } from "react-toastify";
 
 const patientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
@@ -101,12 +102,13 @@ export const AddPatient = () => {
 
       const patientData = await response.json();
 
+      toast.success("Patient added successfully!");
       setPatients((prev) => [...prev, patientData]);
 
       reset();
-      console.log("Patient Added:", patientData);
     } catch (error) {
       console.log("Error:", error);
+      toast.error("Failed to add patient!");
     }
   };
 
@@ -120,7 +122,6 @@ export const AddPatient = () => {
 
   return (
     <main className={styles.page}>
-      {/* Header */}
       <div className={styles.pageHeader}>
         <div>
           <Link to="/" className={styles.backButton}>
@@ -134,9 +135,7 @@ export const AddPatient = () => {
         </div>
       </div>
 
-      {/* Form Card */}
       <form className={styles.formCard} onSubmit={handleSubmit(onSubmit)}>
-        {/* Personal Information */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionIcon}>
@@ -167,7 +166,6 @@ export const AddPatient = () => {
               {errors.name && <small>{errors.name.message}</small>}
             </div>
 
-            {/* Age */}
             <div className={styles.formGroup}>
               <label>
                 Age
@@ -184,7 +182,6 @@ export const AddPatient = () => {
               {errors.age && <small>{errors.age.message}</small>}
             </div>
 
-            {/* Gender */}
             <div className={styles.formGroup}>
               <label>
                 Gender
@@ -204,7 +201,6 @@ export const AddPatient = () => {
               {errors.gender && <small>{errors.gender.message}</small>}
             </div>
 
-            {/* DOB */}
             <div className={styles.formGroup}>
               <label>
                 Date of Birth
@@ -224,7 +220,6 @@ export const AddPatient = () => {
           </div>
         </section>
 
-        {/* Contact Information */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionIcon}>
@@ -286,7 +281,6 @@ export const AddPatient = () => {
           </div>
         </section>
 
-        {/* Insurance */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionIcon}>
@@ -325,7 +319,6 @@ export const AddPatient = () => {
           </div>
         </section>
 
-        {/* Profile Picture */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionIcon}>
@@ -359,7 +352,6 @@ export const AddPatient = () => {
           )}
         </section>
 
-        {/* Footer */}
         <div className={styles.formFooter}>
           <Link to="/" className={styles.cancelButton}>
             Cancel

@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { LabResults } from "../LabResults/LabResults";
 import { motion } from "motion/react";
+import styles from "./patientDetails.module.css";
 
 export const PatientDetails = () => {
   const { id } = useParams();
@@ -20,9 +21,11 @@ export const PatientDetails = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <PatientProfile />
-      <DiagnosisHistory />
-      <LabResults />
+      <div className={styles.cont}>
+        <PatientProfile />
+        <DiagnosisHistory />
+        <LabResults />
+      </div>
     </motion.div>
   );
 };

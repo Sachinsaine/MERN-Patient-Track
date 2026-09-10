@@ -1,0 +1,157 @@
+.dialogPaper {
+  border-radius: var(--radius-card) !important;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dialogTitle {
+  padding: 22px 28px !important;
+  border-bottom: 1px solid #edf0f4;
+  color: var(--color-navy);
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.form {
+  width: 100%;
+  background: #ffffff;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+  padding: 25px 28px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label,
+.profileGroup label {
+  margin-bottom: 8px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.formGroup input {
+  width: 100%;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #26364d;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.formGroup input:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
+}
+
+.formGroup input:read-only {
+  background: #f9fafb;
+  cursor: default;
+}
+
+.profileGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #dce1e7;
+  background: #f5f6f8;
+}
+
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px;
+  background: #fbfcfd;
+  border-top: 1px solid #edf0f4;
+}
+
+.cancelButton {
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 19px;
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #667085;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: #f5f6f8;
+}
+
+.submitButton {
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-teal);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.submitButton:hover {
+  background: var(--color-teal-dark);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .dialogTitle {
+    padding: 18px 20px !important;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .formFooter {
+    padding: 16px 20px;
+  }
+
+  .cancelButton,
+  .submitButton {
+    flex: 1;
+  }
+}

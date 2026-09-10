@@ -2,16 +2,27 @@ import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import styles from "./patientInfo.module.css";
 import { motion } from "motion/react";
+import { EditProfile } from "../EditProfileDialog/EditProfile";
 
 export const PatientInfo = () => {
-  const { patient, loading } = useContext(PatientContext);
+  const { patient, loading, setEditPatientOpen, editPatientOpen } =
+    useContext(PatientContext);
+
+  console.log(editPatientOpen);
+
+  const handleOpenEditInfo = () => {
+    setEditPatientOpen(true);
+  };
+  const handleCloseEditInfo = () => {
+    setEditPatientOpen(false);
+  };
 
   if (loading) {
-    return <h1 className={styles.loading}>Loading...</h1>;
+    return <h1 className={styles.card}>Loading...</h1>;
   }
 
   if (!patient) {
-    return <h1 className={styles.loading}>No patient selected</h1>;
+    return <h1 className={styles.card}>No patient selected</h1>;
   }
 
   const diagnosisHistory = patient.diagnosis_history.map((data) => ({
@@ -89,6 +100,13 @@ export const PatientInfo = () => {
             <div className={styles.infoItem}>
               <span className={styles.label}>Insurance Type</span>
               <span className={styles.value}>{patient.insurance_type}</span>
+            </div>
+
+            <div className={styles.infoItem}>
+              <span className={styles.label}></span>
+              <button className="bttn" onClick={handleOpenEditInfo}>
+                Edit profile
+              </button>
             </div>
           </div>
         </section>
@@ -185,6 +203,11 @@ export const PatientInfo = () => {
           </div>
         </section>
       </div>
+      <EditProfile
+        open={editPatientOpen}
+        close={handleCloseEditInfo}
+        patient={patient}
+      />
     </motion.div>
   );
 };

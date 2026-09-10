@@ -4,7 +4,7 @@ import styles from "./patient.module.css";
 import { PatientContext } from "../../context/PatientContext";
 import { PatientsSkeleton } from "../PatientSkeleton/PatientsSkeleton";
 import { useNavigate } from "react-router-dom";
-import { DeleteDialog } from "../DeleteDialog";
+import { DeleteDialog } from "../DeleteDialog/DeleteDialog";
 import { motion } from "motion/react";
 
 export const Patients = () => {

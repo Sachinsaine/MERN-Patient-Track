@@ -86,6 +86,38 @@ body {
   background-color: var(--color-bg);
 }
 
+.bttn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  height: 46px;
+
+  padding: 0 1.1rem;
+
+  background: var(--color-teal);
+  color: #ffffff;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  transition: all 0.2s ease;
+}
+
+.bttn:hover {
+  background: var(--color-teal-dark);
+
+  transform: translateY(-1px);
+}
+
 .cta-btn {
   width: 100%;
   background-color: var(--color-teal);

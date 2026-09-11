@@ -9,6 +9,7 @@ import { Overview } from "./components/Overview/Overview";
 import { AddPatient } from "./components/Forms/AddPatient";
 import { Footer } from "./components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import { Schedule } from "./components/Schedule/Schedule";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/patientDetails/:id" element={<PatientDetails />} />
             <Route path="/" element={<Overview />} />
             <Route path="/addPatient" element={<AddPatient />} />
+            <Route path="/schedule" element={<Schedule />} />
           </Routes>
           <Footer />
         </PatientContextProvider>

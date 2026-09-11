@@ -320,7 +320,274 @@
 
   transform: translateY(-2px);
 }
+.dashboardBottom {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1rem;
 
+  margin-top: 2rem;
+}
+
+.recentPatients,
+.quickActions {
+  padding: 1.25rem;
+
+  background: #f8f9fc;
+
+  border: 1px solid #eef0f3;
+  border-radius: 18px;
+}
+
+.dashboardBottom .sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+}
+
+.dashboardBottom .sectionHeader h2 {
+  margin: 0;
+
+  color: var(--color-navy);
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dashboardBottom .sectionHeader p {
+  margin-top: 0.3rem;
+
+  color: var(--color-muted);
+
+  font-size: 0.75rem;
+}
+
+.viewAll {
+  display: flex;
+  align-items: center;
+
+  gap: 0.25rem;
+
+  color: var(--color-teal);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.viewAll:hover {
+  color: var(--color-teal-dark);
+}
+
+.patientList {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.65rem;
+}
+
+.patientRow {
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  padding: 0.7rem;
+
+  background: #ffffff;
+
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+
+  transition: all 0.2s ease;
+}
+
+.patientRow:hover {
+  border-color: #dfe5e8;
+
+  transform: translateX(2px);
+}
+
+.patientAvatar {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: #e4f3fc;
+
+  color: #087bbb;
+
+  border-radius: 50%;
+}
+
+.patientAvatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.patientDetails {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.patientDetails h3 {
+  margin: 0;
+
+  overflow: hidden;
+
+  color: var(--color-navy);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.patientDetails p {
+  margin: 0.2rem 0 0;
+
+  color: var(--color-muted);
+
+  font-size: 0.7rem;
+}
+
+.patientStatus {
+  padding: 0.3rem 0.55rem;
+
+  background: #e2f5ef;
+
+  color: #13876e;
+
+  border-radius: 20px;
+
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.quickActions {
+  margin-top: 0;
+}
+
+.actionGrid {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.65rem;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  padding: 0.8rem;
+
+  background: #ffffff;
+
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+
+  color: var(--color-navy);
+
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+}
+
+.actionCard:hover {
+  border-color: var(--color-teal);
+
+  transform: translateX(2px);
+}
+
+.actionIcon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e4f3fc;
+
+  color: var(--color-teal);
+
+  border-radius: 10px;
+}
+
+.actionCard > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+.actionCard strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.actionCard span {
+  margin-top: 0.2rem;
+
+  color: var(--color-muted);
+
+  font-size: 0.68rem;
+}
+
+.actionArrow {
+  color: #b0b7c0;
+
+  flex-shrink: 0;
+}
+
+.emptyState {
+  min-height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  color: var(--color-muted);
+
+  text-align: center;
+}
+
+.emptyState p {
+  margin: 0;
+
+  font-size: 0.8rem;
+}
+
+.emptyState a {
+  color: var(--color-teal);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  text-decoration: none;
+}
 @media (max-width: 1100px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);

@@ -1,0 +1,377 @@
+.page {
+  width: 100%;
+  min-height: 100%;
+  padding: 1.25rem;
+  background: var(--color-background);
+}
+
+.headingCont {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.25rem;
+  color: var(--color-teal);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pageHeader h1 {
+  color: var(--color-navy);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 0.35rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0 1.1rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-teal);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primaryButton:hover {
+  background: var(--color-teal-dark);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.blueCard {
+  background: var(--color-tile-blue);
+}
+
+.greenCard {
+  background: var(--color-status-cured-bg);
+}
+
+.yellowCard {
+  background: var(--color-status-treated-bg);
+}
+
+.pinkCard {
+  background: var(--color-tile-pink);
+}
+
+.summaryIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--color-navy);
+}
+
+.summaryCard p {
+  margin-bottom: 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.summaryCard strong {
+  color: var(--color-navy);
+  font-size: 1.5rem;
+}
+
+.scheduleCard {
+  padding: 1.25rem;
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-card);
+}
+
+.scheduleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.scheduleHeader h2 {
+  color: var(--color-navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.scheduleHeader p {
+  margin-top: 0.3rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.dateWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 42px;
+  padding: 0 0.75rem;
+  border: 1px solid #e1e5ed;
+  border-radius: 10px;
+  color: var(--color-muted);
+}
+
+.dateInput {
+  min-height: 40px;
+  border: none;
+  color: var(--color-ink);
+  background: transparent;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.appointment {
+  display: grid;
+  grid-template-columns: 95px 24px minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.appointment:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.timeColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.2rem;
+}
+
+.timeColumn strong {
+  color: var(--color-navy);
+  font-size: 0.85rem;
+}
+
+.timeColumn span {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.timelineLine {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.timelineLine::before {
+  position: absolute;
+  top: 0;
+  bottom: -1.25rem;
+  width: 2px;
+  background: #e9edf3;
+  content: "";
+}
+
+.appointment:last-child .timelineLine::before {
+  bottom: 0;
+}
+
+.timelineLine span {
+  position: relative;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.25rem;
+  border: 3px solid var(--color-teal);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.appointmentContent {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #edf0f5;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.appointmentTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.appointmentTop h3 {
+  color: var(--color-navy);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.appointmentTop p {
+  margin-top: 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.statusConfirmed {
+  background: var(--color-status-cured-bg);
+  color: var(--color-status-cured-text);
+}
+
+.statusPending {
+  background: var(--color-status-treated-bg);
+  color: var(--color-status-treated-text);
+}
+
+.statusCompleted {
+  background: var(--color-status-observation-bg);
+  color: var(--color-status-observation-text);
+}
+
+.statusCancelled {
+  background: var(--color-status-untreated-bg);
+  color: var(--color-status-untreated-text);
+}
+
+.appointmentBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.doctorInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.viewButton {
+  border: none;
+  background: transparent;
+  color: var(--color-teal-dark);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.viewButton:hover {
+  color: var(--color-navy);
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 1rem;
+  }
+
+  .pageHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primaryButton {
+    width: 100%;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .scheduleCard {
+    padding: 1rem;
+  }
+
+  .scheduleHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dateWrapper {
+    width: 100%;
+  }
+
+  .dateInput {
+    width: 100%;
+  }
+
+  .appointment {
+    grid-template-columns: 70px 16px minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .appointmentTop {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .appointmentBottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

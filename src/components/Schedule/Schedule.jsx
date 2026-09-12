@@ -5,8 +5,8 @@ import {
   FiPlus,
   FiUser,
 } from "react-icons/fi";
-
 import styles from "./schedule.module.css";
+import { motion } from "motion/react";
 
 const appointments = [
   {
@@ -49,132 +49,138 @@ const appointments = [
 
 export const Schedule = () => {
   return (
-    <main className={styles.page}>
-      <div className={styles.headingCont}>
-        <header className={styles.pageHeader}>
-          <div>
-            <p className={styles.eyebrow}>Patient Track</p>
-
-            <h1>Schedule</h1>
-
-            <p className={styles.subtitle}>
-              Manage appointments and daily patient visits.
-            </p>
-          </div>
-
-          <button className={styles.primaryButton} type="button">
-            <FiPlus size={18} />
-            Add Appointment
-          </button>
-        </header>
-
-        <section className={styles.summaryGrid}>
-          <article className={`${styles.summaryCard} ${styles.blueCard}`}>
-            <span className={styles.summaryIcon}>
-              <FiCalendar size={21} />
-            </span>
-
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <main className={styles.page}>
+        <div className={styles.headingCont}>
+          <header className={styles.pageHeader}>
             <div>
-              <p>Total Appointments</p>
-              <strong>4</strong>
+              <p className={styles.eyebrow}>Patient Track</p>
+
+              <h1>Schedule</h1>
+
+              <p className={styles.subtitle}>
+                Manage appointments and daily patient visits.
+              </p>
             </div>
-          </article>
 
-          <article className={`${styles.summaryCard} ${styles.greenCard}`}>
-            <span className={styles.summaryIcon}>
-              <FiCheckCircle size={21} />
-            </span>
+            <button className={styles.primaryButton} type="button">
+              <FiPlus size={18} />
+              Add Appointment
+            </button>
+          </header>
 
-            <div>
-              <p>Confirmed</p>
-              <strong>1</strong>
-            </div>
-          </article>
+          <section className={styles.summaryGrid}>
+            <article className={`${styles.summaryCard} ${styles.blueCard}`}>
+              <span className={styles.summaryIcon}>
+                <FiCalendar size={21} />
+              </span>
 
-          <article className={`${styles.summaryCard} ${styles.yellowCard}`}>
-            <span className={styles.summaryIcon}>
-              <FiClock size={21} />
-            </span>
-
-            <div>
-              <p>Pending</p>
-              <strong>1</strong>
-            </div>
-          </article>
-
-          <article className={`${styles.summaryCard} ${styles.pinkCard}`}>
-            <span className={styles.summaryIcon}>
-              <FiCheckCircle size={21} />
-            </span>
-
-            <div>
-              <p>Completed</p>
-              <strong>1</strong>
-            </div>
-          </article>
-        </section>
-      </div>
-
-      <section className={styles.scheduleCard}>
-        <div className={styles.scheduleHeader}>
-          <div>
-            <h2>Daily Schedule</h2>
-            <p>Friday, September 11, 2026</p>
-          </div>
-
-          <div className={styles.dateWrapper}>
-            <FiCalendar size={17} />
-            <input
-              className={styles.dateInput}
-              type="date"
-              defaultValue="2026-09-11"
-            />
-          </div>
-        </div>
-
-        <div className={styles.timeline}>
-          {appointments.map((appointment) => (
-            <article className={styles.appointment} key={appointment.id}>
-              <div className={styles.timeColumn}>
-                <strong>{appointment.time}</strong>
-                <span>30 min</span>
-              </div>
-
-              <div className={styles.timelineLine}>
-                <span />
-              </div>
-
-              <div className={styles.appointmentContent}>
-                <div className={styles.appointmentTop}>
-                  <div>
-                    <h3>{appointment.patient}</h3>
-                    <p>{appointment.type}</p>
-                  </div>
-
-                  <span
-                    className={`${styles.statusBadge} ${
-                      styles[appointment.statusClass]
-                    }`}
-                  >
-                    {appointment.status}
-                  </span>
-                </div>
-
-                <div className={styles.appointmentBottom}>
-                  <span className={styles.doctorInfo}>
-                    <FiUser size={15} />
-                    {appointment.doctor}
-                  </span>
-
-                  <button className={styles.viewButton} type="button">
-                    View Details
-                  </button>
-                </div>
+              <div>
+                <p>Total Appointments</p>
+                <strong>4</strong>
               </div>
             </article>
-          ))}
+
+            <article className={`${styles.summaryCard} ${styles.greenCard}`}>
+              <span className={styles.summaryIcon}>
+                <FiCheckCircle size={21} />
+              </span>
+
+              <div>
+                <p>Confirmed</p>
+                <strong>1</strong>
+              </div>
+            </article>
+
+            <article className={`${styles.summaryCard} ${styles.yellowCard}`}>
+              <span className={styles.summaryIcon}>
+                <FiClock size={21} />
+              </span>
+
+              <div>
+                <p>Pending</p>
+                <strong>1</strong>
+              </div>
+            </article>
+
+            <article className={`${styles.summaryCard} ${styles.pinkCard}`}>
+              <span className={styles.summaryIcon}>
+                <FiCheckCircle size={21} />
+              </span>
+
+              <div>
+                <p>Completed</p>
+                <strong>1</strong>
+              </div>
+            </article>
+          </section>
         </div>
-      </section>
-    </main>
+
+        <section className={styles.scheduleCard}>
+          <div className={styles.scheduleHeader}>
+            <div>
+              <h2>Daily Schedule</h2>
+              <p>Friday, September 11, 2026</p>
+            </div>
+
+            <div className={styles.dateWrapper}>
+              <FiCalendar size={17} />
+              <input
+                className={styles.dateInput}
+                type="date"
+                defaultValue="2026-09-11"
+              />
+            </div>
+          </div>
+
+          <div className={styles.timeline}>
+            {appointments.map((appointment) => (
+              <article className={styles.appointment} key={appointment.id}>
+                <div className={styles.timeColumn}>
+                  <strong>{appointment.time}</strong>
+                  <span>30 min</span>
+                </div>
+
+                <div className={styles.timelineLine}>
+                  <span />
+                </div>
+
+                <div className={styles.appointmentContent}>
+                  <div className={styles.appointmentTop}>
+                    <div>
+                      <h3>{appointment.patient}</h3>
+                      <p>{appointment.type}</p>
+                    </div>
+
+                    <span
+                      className={`${styles.statusBadge} ${
+                        styles[appointment.statusClass]
+                      }`}
+                    >
+                      {appointment.status}
+                    </span>
+                  </div>
+
+                  <div className={styles.appointmentBottom}>
+                    <span className={styles.doctorInfo}>
+                      <FiUser size={15} />
+                      {appointment.doctor}
+                    </span>
+
+                    <button className={styles.viewButton} type="button">
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </motion.div>
   );
 };

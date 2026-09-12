@@ -25,23 +25,20 @@ const connectDB = require("./config/db");
 
 const Patient = require("./models/PatientModel");
 
+const Appointment = require("./models/AppointmentModel");
+
 const patients = require("./data/patients");
 
-// Use the hosting provider's PORT in production,
-// otherwise use 4000 locally.
 const PORT = process.env.PORT || 4000;
 
-// Connect to MongoDB
 connectDB();
 
-// Health check
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Patient Track API is running",
   });
 });
 
-// GET ALL PATIENTS
 app.get("/api/patient", async (req, res) => {
   try {
     const patients = await Patient.find();
@@ -57,7 +54,7 @@ app.get("/api/patient", async (req, res) => {
   }
 });
 
-// GET ONE PATIENT
+// PATIENTS
 app.get("/api/patient/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,7 +85,6 @@ app.get("/api/patient/:id", async (req, res) => {
   }
 });
 
-// CREATE NEW PATIENT
 // app.post("/api/patient", async (req, res) => {
 //   try {
 //     console.log("Received patient:", req.body);
@@ -132,7 +128,6 @@ app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
   }
 });
 
-// UPDATE PATIENT
 app.put("/api/patient/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -166,7 +161,6 @@ app.put("/api/patient/:id", async (req, res) => {
   }
 });
 
-// DELETE PATIENT
 app.delete("/api/patient/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -200,7 +194,6 @@ app.delete("/api/patient/:id", async (req, res) => {
   }
 });
 
-// SEED PATIENTS
 app.post("/api/patient/seed", async (req, res) => {
   try {
     await Patient.deleteMany();
@@ -216,6 +209,35 @@ app.post("/api/patient/seed", async (req, res) => {
 
     res.status(500).json({
       message: "Failed to insert patients",
+      error: error.message,
+    });
+  }
+});
+
+// APPOINTMENTS
+app.get("/api/appointments", async (req, res) => {
+  try {
+    let response = await Appointment.find();
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Failed find appointments", error: error.message });
+  }
+});
+
+app.post("/api/appointments", async (req, res) => {
+  try {
+    let appointment = new Appointment(req.body);
+
+    const saveAppointment = await appointment.save();
+    res.status(200).json(saveAppointment);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Failed to create an appointment",
       error: error.message,
     });
   }

@@ -7,47 +7,52 @@ import {
 } from "react-icons/fi";
 import styles from "./schedule.module.css";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
+import { useAppointments } from "../../hooks/useAppointments";
 
-const appointments = [
-  {
-    id: 1,
-    time: "09:00 AM",
-    patient: "Emily Johnson",
-    type: "General Checkup",
-    doctor: "Dr. Sarah Wilson",
-    status: "Confirmed",
-    statusClass: "statusConfirmed",
-  },
-  {
-    id: 2,
-    time: "10:30 AM",
-    patient: "Michael Smith",
-    type: "Blood Pressure Review",
-    doctor: "Dr. Robert Brown",
-    status: "Pending",
-    statusClass: "statusPending",
-  },
-  {
-    id: 3,
-    time: "12:00 PM",
-    patient: "Sophia Davis",
-    type: "Follow-up Consultation",
-    doctor: "Dr. Sarah Wilson",
-    status: "Completed",
-    statusClass: "statusCompleted",
-  },
-  {
-    id: 4,
-    time: "02:30 PM",
-    patient: "James Wilson",
-    type: "Diabetes Consultation",
-    doctor: "Dr. Robert Brown",
-    status: "Cancelled",
-    statusClass: "statusCancelled",
-  },
-];
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "09:00 AM",
+//     patient: "Emily Johnson",
+//     type: "General Checkup",
+//     doctor: "Dr. Sarah Wilson",
+//     status: "Confirmed",
+//     statusClass: "statusConfirmed",
+//   },
+//   {
+//     id: 2,
+//     time: "10:30 AM",
+//     patient: "Michael Smith",
+//     type: "Blood Pressure Review",
+//     doctor: "Dr. Robert Brown",
+//     status: "Pending",
+//     statusClass: "statusPending",
+//   },
+//   {
+//     id: 3,
+//     time: "12:00 PM",
+//     patient: "Sophia Davis",
+//     type: "Follow-up Consultation",
+//     doctor: "Dr. Sarah Wilson",
+//     status: "Completed",
+//     statusClass: "statusCompleted",
+//   },
+//   {
+//     id: 4,
+//     time: "02:30 PM",
+//     patient: "James Wilson",
+//     type: "Diabetes Consultation",
+//     doctor: "Dr. Robert Brown",
+//     status: "Cancelled",
+//     statusClass: "statusCancelled",
+//   },
+// ];
 
 export const Schedule = () => {
+  const { appointments } = useAppointments();
+  console.log(appointments);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -67,10 +72,12 @@ export const Schedule = () => {
               </p>
             </div>
 
-            <button className={styles.primaryButton} type="button">
-              <FiPlus size={18} />
-              Add Appointment
-            </button>
+            <Link to="/appointment">
+              <button className={styles.primaryButton} type="button">
+                <FiPlus size={18} />
+                Add Appointment
+              </button>
+            </Link>
           </header>
 
           <section className={styles.summaryGrid}>

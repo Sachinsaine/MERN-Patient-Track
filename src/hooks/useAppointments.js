@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useAppointments = () => {
-  const [appointment, setAppointment] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +15,7 @@ export const useAppointments = () => {
           throw new Error("Failed to fetch appointments");
         }
         const data = await response.json();
-        setAppointment(data);
+        setAppointments(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -24,5 +24,5 @@ export const useAppointments = () => {
     };
     fetchAppointments();
   }, []);
-  return { appointment, setAppointment, error, loading };
+  return { appointments, setAppointments, error, loading };
 };

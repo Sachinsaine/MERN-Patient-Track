@@ -650,6 +650,11 @@
 
     gap: 0.7rem;
   }
+  .dashboardBottom {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 
 @media (max-width: 380px) {

@@ -7,7 +7,6 @@ import {
   FiPhone,
   FiShield,
   FiUpload,
-  FiArrowLeft,
   FiCheck,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -122,7 +121,7 @@ export const AddPatient = () => {
 
   return (
     <main className={styles.page}>
-      <div className={styles.pageHeader}>
+      {/* <div className={styles.pageHeader}>
         <div>
           <Link to="/" className={styles.backButton}>
             <FiArrowLeft size={18} />
@@ -133,7 +132,7 @@ export const AddPatient = () => {
 
           <p>Enter the patient's information to create a new patient record.</p>
         </div>
-      </div>
+      </div> */}
 
       <form className={styles.formCard} onSubmit={handleSubmit(onSubmit)}>
         <section className={styles.section}>

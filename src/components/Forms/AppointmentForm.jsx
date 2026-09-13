@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
-  FiArrowLeft,
   FiCalendar,
   FiCheck,
   FiClock,
@@ -88,7 +87,7 @@ export const AppointmentForm = () => {
     <main className={styles.page}>
       {/* Page Header */}
 
-      <div className={styles.pageHeader}>
+      {/* <div className={styles.pageHeader}>
         <div>
           <Link to="/" className={styles.backButton}>
             <FiArrowLeft size={18} />
@@ -99,13 +98,9 @@ export const AppointmentForm = () => {
 
           <p>Enter the appointment information to create a new appointment.</p>
         </div>
-      </div>
-
-      {/* Form Card */}
+      </div> */}
 
       <form className={styles.formCard} onSubmit={handleSubmit(onSubmit)}>
-        {/* Appointment Information */}
-
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <div className={styles.sectionIcon}>

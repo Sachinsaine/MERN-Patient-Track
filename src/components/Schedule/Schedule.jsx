@@ -9,49 +9,16 @@ import styles from "./schedule.module.css";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { useAppointments } from "../../hooks/useAppointments";
-
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "09:00 AM",
-//     patient: "Emily Johnson",
-//     type: "General Checkup",
-//     doctor: "Dr. Sarah Wilson",
-//     status: "Confirmed",
-//     statusClass: "statusConfirmed",
-//   },
-//   {
-//     id: 2,
-//     time: "10:30 AM",
-//     patient: "Michael Smith",
-//     type: "Blood Pressure Review",
-//     doctor: "Dr. Robert Brown",
-//     status: "Pending",
-//     statusClass: "statusPending",
-//   },
-//   {
-//     id: 3,
-//     time: "12:00 PM",
-//     patient: "Sophia Davis",
-//     type: "Follow-up Consultation",
-//     doctor: "Dr. Sarah Wilson",
-//     status: "Completed",
-//     statusClass: "statusCompleted",
-//   },
-//   {
-//     id: 4,
-//     time: "02:30 PM",
-//     patient: "James Wilson",
-//     type: "Diabetes Consultation",
-//     doctor: "Dr. Robert Brown",
-//     status: "Cancelled",
-//     statusClass: "statusCancelled",
-//   },
-// ];
+import { useContext } from "react";
+import { PatientContext } from "../../context/PatientContext";
 
 export const Schedule = () => {
   const { appointments } = useAppointments();
-  console.log(appointments);
+  const { loading } = useContext(PatientContext);
+
+  if (loading) {
+    return <h1 className={styles.headingCont}>Loading...</h1>;
+  }
 
   return (
     <motion.div
@@ -149,7 +116,7 @@ export const Schedule = () => {
               <article className={styles.appointment} key={appointment.id}>
                 <div className={styles.timeColumn}>
                   <strong>{appointment.time}</strong>
-                  <span>30 min</span>
+                  <span>{appointment.duration} min</span>
                 </div>
 
                 <div className={styles.timelineLine}>

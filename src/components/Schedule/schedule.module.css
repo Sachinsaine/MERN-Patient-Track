@@ -325,9 +325,8 @@
 
 @media (max-width: 600px) {
   .page {
-    padding: 1rem;
+    margin-bottom: 4rem;
   }
-
   .pageHeader {
     align-items: flex-start;
     flex-direction: column;
@@ -359,8 +358,14 @@
   }
 
   .appointment {
-    grid-template-columns: 70px 16px minmax(0, 1fr);
+    grid-template-columns: 46px 16px minmax(0, 1fr);
     gap: 0.5rem;
+  }
+
+  .appointmentContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .appointmentTop {

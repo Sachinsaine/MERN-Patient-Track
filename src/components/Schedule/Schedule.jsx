@@ -20,6 +20,8 @@ export const Schedule = () => {
     return <h1 className={styles.headingCont}>Loading...</h1>;
   }
 
+  const totalAppointments = appointments.length;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -55,7 +57,7 @@ export const Schedule = () => {
 
               <div>
                 <p>Total Appointments</p>
-                <strong>4</strong>
+                <strong>{totalAppointments}</strong>
               </div>
             </article>
 

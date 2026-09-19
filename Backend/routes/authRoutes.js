@@ -7,6 +7,19 @@ const UserLogin = require("../models/UserModel");
 
 const router = express.Router();
 
+const verifyToken = require("../middleware/authMiddleware");
+
+router.get("/me", verifyToken, async (req, res) => {
+  try {
+    const user = await UserLogin.findById(req.user.userId).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (error) {
+    console.error("ME ERROR:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body || {};

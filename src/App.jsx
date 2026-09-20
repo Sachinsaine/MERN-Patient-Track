@@ -11,23 +11,83 @@ import { Footer } from "./components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import { Schedule } from "./components/Schedule/Schedule";
 import { AppointmentForm } from "./components/Forms/AppointmentForm";
+import { Login } from "./components/Login/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <>
       <BrowserRouter>
         <PatientContextProvider>
-          <Navbar />
+          {token && <Navbar />}
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/patientInfo" element={<PatientInfo />} />
-            <Route path="/patientDetails/:id" element={<PatientDetails />} />
-            <Route path="/" element={<Overview />} />
-            <Route path="/addPatient" element={<AddPatient />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/appointment" element={<AppointmentForm />} />
+            <Route path="/" element={<Login />} />
+
+            <Route
+              path="/overview"
+              element={
+                <ProtectedRoute>
+                  <Overview />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/patientInfo"
+              element={
+                <ProtectedRoute>
+                  <PatientInfo />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/patientDetails/:id"
+              element={
+                <ProtectedRoute>
+                  <PatientDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/addPatient"
+              element={
+                <ProtectedRoute>
+                  <AddPatient />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/schedule"
+              element={
+                <ProtectedRoute>
+                  <Schedule />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/appointment"
+              element={
+                <ProtectedRoute>
+                  <AppointmentForm />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
-          <Footer />
+          {token && <Footer />}
         </PatientContextProvider>
       </BrowserRouter>
       <ToastContainer />

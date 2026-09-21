@@ -12,7 +12,7 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./navabar.module.css";
 
 const NAV_ITEMS = [
-  { label: "Overview", icon: FiHome, path: "/" },
+  { label: "Overview", icon: FiHome, path: "/overview" },
   { label: "Patients", icon: FiUsers, path: "/dashboard" },
   { label: "Schedule", icon: FiCalendar, path: "/schedule" },
   { label: "Message", icon: FiMessageSquare, path: "/message" },
@@ -30,7 +30,7 @@ export const Navbar = () => {
     <header className={styles.header}>
       <div className={styles.brand}>
         <span className={styles.brandName}>
-          <Link to="/">
+          <Link to="/overview">
             <img src={Logo} alt="TechCareLogo" />
           </Link>
         </span>

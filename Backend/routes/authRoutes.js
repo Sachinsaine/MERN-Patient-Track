@@ -97,9 +97,16 @@ router.post("/login", async (req, res) => {
         expiresIn: "1h",
       },
     );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // development
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000,
+    });
+
     res.status(200).json({
       message: "Login successful",
-      token,
     });
   } catch (error) {
     console.error("LOGIN ERROR:", error);

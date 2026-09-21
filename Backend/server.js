@@ -10,10 +10,17 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
+const cookieParser = require("cookie-parser");
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 app.use(express.json());
+app.use(cookieParser());
 
 const authRoutes = require("./routes/authRoutes");
 
@@ -32,6 +39,7 @@ const Patient = require("./models/PatientModel");
 const Appointment = require("./models/AppointmentModel");
 
 const patients = require("./data/patients");
+const verifyToken = require("./middleware/authMiddleware");
 
 const PORT = process.env.PORT || 4000;
 
@@ -43,7 +51,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/api/patient", async (req, res) => {
+app.get("/api/patient", verifyToken, async (req, res) => {
   try {
     const patients = await Patient.find();
 

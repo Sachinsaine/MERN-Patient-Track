@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const { checkAuth } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +19,7 @@ export const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           email,
           password,
@@ -31,10 +35,8 @@ export const Login = () => {
         return;
       }
 
-      // Store JWT token
-      localStorage.setItem("token", data.token);
+      await checkAuth();
 
-      // Navigate after successful login
       navigate("/overview");
     } catch (error) {
       console.error("LOGIN ERROR:", error);

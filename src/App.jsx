@@ -13,86 +13,104 @@ import { Schedule } from "./components/Schedule/Schedule";
 import { AppointmentForm } from "./components/Forms/AppointmentForm";
 import { Login } from "./components/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
-
-function App() {
-  const token = localStorage.getItem("token");
+import { AuthContextProvider } from "./context/AuthContextProvider";
+import { useAuth } from "./hooks/useAuth";
+function AppContent() {
+  const { user, loading } = useAuth();
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
-      <BrowserRouter>
-        <PatientContextProvider>
-          {token && <Navbar />}
-          <Routes>
-            <Route path="/" element={<Login />} />
-
-            <Route
-              path="/overview"
-              element={
-                <ProtectedRoute>
-                  <Overview />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/patientInfo"
-              element={
-                <ProtectedRoute>
-                  <PatientInfo />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/patientDetails/:id"
-              element={
-                <ProtectedRoute>
-                  <PatientDetails />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/addPatient"
-              element={
-                <ProtectedRoute>
-                  <AddPatient />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/schedule"
-              element={
-                <ProtectedRoute>
-                  <Schedule />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/appointment"
-              element={
-                <ProtectedRoute>
-                  <AppointmentForm />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-          {token && <Footer />}
-        </PatientContextProvider>
-      </BrowserRouter>
-      <ToastContainer />
+      {" "}
+      {user && <Navbar />}{" "}
+      <Routes>
+        {" "}
+        <Route path="/" element={<Login />} />{" "}
+        <Route
+          path="/overview"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Overview />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Dashboard />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/patientInfo"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <PatientInfo />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/patientDetails/:id"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <PatientDetails />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/addPatient"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <AddPatient />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/schedule"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <Schedule />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+        <Route
+          path="/appointment"
+          element={
+            <ProtectedRoute>
+              {" "}
+              <AppointmentForm />{" "}
+            </ProtectedRoute>
+          }
+        />{" "}
+      </Routes>{" "}
+      {user && <Footer />}{" "}
     </>
   );
 }
-
+function App() {
+  return (
+    <>
+      {" "}
+      <BrowserRouter>
+        {" "}
+        <AuthContextProvider>
+          {" "}
+          <PatientContextProvider>
+            {" "}
+            <AppContent />{" "}
+          </PatientContextProvider>{" "}
+        </AuthContextProvider>{" "}
+      </BrowserRouter>{" "}
+      <ToastContainer />{" "}
+    </>
+  );
+}
 export default App;

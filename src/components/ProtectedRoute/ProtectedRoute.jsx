@@ -1,10 +1,16 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("Please login or register first");
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!user) {
     return <Navigate to="/" replace />;
   }
+
   return children;
 };

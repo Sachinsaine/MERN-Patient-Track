@@ -1,0 +1,131 @@
+.loginPage {
+  /* min-height: 100vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  /* padding: 1rem; */
+  flex-direction: column;
+  gap: 30px;
+}
+
+.logoImg {
+  width: 200px;
+  mix-blend-mode: darken;
+}
+.loginCard {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  color: var(--color-navy);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.inputGroup input {
+  width: 100%;
+  height: 46px;
+  padding: 0 1rem;
+  border: 1px solid #d8dce6;
+  border-radius: 10px;
+  outline: none;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.inputGroup input::placeholder {
+  color: var(--color-muted);
+}
+
+.inputGroup input:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.12);
+}
+
+.loginButton {
+  width: 100%;
+  height: 46px;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--color-teal);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.loginButton:hover {
+  background: var(--color-teal-dark);
+  transform: translateY(-1px);
+}
+
+.loginButton:active {
+  transform: translateY(0);
+}
+
+.inputGroup input.errorInput {
+  border-color: #ef4444;
+}
+
+.inputGroup input.errorInput:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.7rem;
+  }
+}

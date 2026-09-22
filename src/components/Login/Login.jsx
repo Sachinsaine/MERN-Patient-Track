@@ -1,42 +1,63 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import styles from "./login.module.css";
+import logo from "../../assets/Logo.png";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .email("Enter a valid email"),
+
+  password: z.string().min(6, "Password is required"),
+});
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
   const navigate = useNavigate();
-
   const { checkAuth } = useAuth();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
         },
-        credentials: "include",
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      );
 
-      const data = await response.json();
+      const result = await response.json();
 
-      console.log("LOGIN RESPONSE:", data);
+      console.log("LOGIN RESPONSE:", result);
 
       if (!response.ok) {
-        alert(data.message);
+        alert(result.message);
         return;
       }
 
       await checkAuth();
 
+      reset();
       navigate("/overview");
     } catch (error) {
       console.error("LOGIN ERROR:", error);
@@ -45,26 +66,55 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <div className={styles.loginPage}>
+      <img src={logo} alt="" className={styles.logoImg} />
+      <div className={styles.loginCard}>
+        <div className={styles.header}>
+          <h1>Welcome Back</h1>
+          <p>Sign in to Patient Track</p>
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">Email</label>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              {...register("email")}
+              className={errors.email ? styles.errorInput : ""}
+            />
 
-        <button type="submit">Login</button>
-      </form>
+            {errors.email && (
+              <small className={styles.errorMessage}>
+                {errors.email.message}
+              </small>
+            )}
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Password</label>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              {...register("password")}
+              className={errors.email ? styles.errorInput : ""}
+            />
+            {errors.password && (
+              <small className={styles.errorMessage}>
+                {errors.password.message}
+              </small>
+            )}
+          </div>
+
+          <button type="submit" className={styles.loginButton}>
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

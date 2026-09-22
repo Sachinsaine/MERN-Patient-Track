@@ -8,14 +8,20 @@ export const usePatients = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        // const response = await fetch("http://localhost:4000/api/patient");
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/patient`,
+
+          {
+            credentials: "include",
+          },
         );
+
         if (!response.ok) {
           throw new Error("Failed to fetch patients");
         }
+
         const data = await response.json();
+
         setPatients(data);
       } catch (error) {
         setError(error.message);
@@ -23,8 +29,14 @@ export const usePatients = () => {
         setLoading(false);
       }
     };
+
     fetchPatients();
   }, []);
 
-  return { patients, loading, error, setPatients };
+  return {
+    patients,
+    loading,
+    error,
+    setPatients,
+  };
 };

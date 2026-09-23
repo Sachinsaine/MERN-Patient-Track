@@ -14,20 +14,20 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 // for Deployement
-// app.use(
-//   cors({
-//     origin: "https://mern-patient-track-axkc.vercel.app",
-//     credentials: true,
-//   }),
-// );
-
-//For local
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://mern-patient-track-axkc.vercel.app",
     credentials: true,
   }),
 );
+
+//For local
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173",
+//     credentials: true,
+//   }),
+// );
 app.use(express.json());
 app.use(cookieParser());
 

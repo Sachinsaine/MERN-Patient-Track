@@ -102,6 +102,7 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
       secure: true, // development
       sameSite: "none",
+      path: "/",
       maxAge: 60 * 60 * 1000,
     });
 
@@ -121,8 +122,9 @@ router.post("/login", async (req, res) => {
 router.post("/logout", async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
+    path: "/",
   });
 
   res.status(200).json({

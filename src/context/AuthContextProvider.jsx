@@ -6,10 +6,17 @@ import { AuthContext } from "./AuthContext";
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/auth/me", {
+      //Local
+      // const response = await fetch("http://localhost:4000/api/auth/me", {
+      //   credentials: "include",
+      // });
+
+      //Online
+      const response = await fetch(`${API_URL}/api/auth/me`, {
         credentials: "include",
       });
 
@@ -29,7 +36,14 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/auth/logout", {
+      //Local
+      // const response = await fetch("http://localhost:4000/api/auth/logout", {
+      //   method: "POST",
+      //   credentials: "include",
+      // });
+
+      //Online
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

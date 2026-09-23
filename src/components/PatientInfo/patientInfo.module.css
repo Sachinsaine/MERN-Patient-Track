@@ -238,7 +238,9 @@
   text-align: center;
   color: var(--color-navy);
 }
-
+.dblock {
+  display: block;
+}
 @media (max-width: 900px) {
   .vitalsGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -280,5 +282,8 @@
   .diagnosticItem {
     align-items: flex-start;
     flex-direction: column;
+  }
+  .bttn {
+    width: 100%;
   }
 }

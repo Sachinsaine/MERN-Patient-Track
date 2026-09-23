@@ -91,7 +91,6 @@ export const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          {/* Email */}
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
 
@@ -110,7 +109,6 @@ export const Login = () => {
             )}
           </div>
 
-          {/* Password */}
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password</label>
 
@@ -139,7 +137,6 @@ export const Login = () => {
             )}
           </div>
 
-          {/* Remember + Forgot Password */}
           <div className={styles.loginOptions}>
             <label className={styles.rememberMe}>
               <input type="checkbox" {...register("rememberMe")} />
@@ -156,17 +153,15 @@ export const Login = () => {
             </button>
           </div>
 
-          {/* Login */}
           <button
             type="submit"
             className={styles.loginButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Signing in..." : "Login"}
+            {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
-        {/* Signup */}
         <p className={styles.signupText}>
           Don't have an account?{" "}
           <button
@@ -178,7 +173,6 @@ export const Login = () => {
           </button>
         </p>
 
-        {/* Security */}
         <p className={styles.securityText}>
           <FaLock /> <span>Secure access to Patient Track</span>
         </p>

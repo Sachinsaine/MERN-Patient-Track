@@ -16,6 +16,7 @@ import { Login } from "./components/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { AuthContextProvider } from "./context/AuthContextProvider";
 import { useAuth } from "./hooks/useAuth";
+import { Registration } from "./components/Registeration/Registeration";
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -29,16 +30,15 @@ function AppContent() {
       {user && <Navbar />}
 
       <Routes>
-        {/* Anyone visiting the site goes to login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Login page */}
         <Route
           path="/login"
           element={user ? <Navigate to="/overview" replace /> : <Login />}
         />
 
-        {/* Protected pages */}
+        <Route path="/register" element={<Registration />} />
+
         <Route
           path="/overview"
           element={

@@ -87,7 +87,6 @@
 
 .addPatientBtn:hover {
   background: var(--color-teal-dark);
-
   transform: translateY(-1px);
 }
 

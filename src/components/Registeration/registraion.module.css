@@ -1,18 +1,17 @@
 .loginPage {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-background);
-  /* padding: 1rem; */
   flex-direction: column;
   gap: 30px;
 }
-
 .logoImg {
   width: 200px;
   mix-blend-mode: darken;
 }
+
 .loginCard {
   width: 100%;
   max-width: 420px;
@@ -20,43 +19,37 @@
   padding: 2rem;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
+  box-sizing: border-box;
 }
-
 .header {
   text-align: center;
   margin-bottom: 2rem;
 }
-
 .header h1 {
   color: var(--color-navy);
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
-
 .header p {
   color: var(--color-muted);
   font-size: 0.9rem;
 }
-
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
-
 .inputGroup {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .inputGroup label {
   color: var(--color-ink);
   font-size: 0.875rem;
   font-weight: 600;
 }
-
 .inputGroup input {
   width: 100%;
   height: 46px;
@@ -67,20 +60,52 @@
   font-size: 0.9rem;
   color: var(--color-ink);
   background: #ffffff;
+  box-sizing: border-box;
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
-
 .inputGroup input::placeholder {
   color: var(--color-muted);
 }
-
 .inputGroup input:focus {
   border-color: var(--color-teal);
   box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.12);
 }
-
+.inputGroup input.errorInput {
+  border-color: #ef4444;
+}
+.inputGroup input.errorInput:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+.errorMessage {
+  color: #ef4444;
+  font-size: 12px;
+}
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 60px;
+}
+.passwordToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--color-teal);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.passwordToggle:hover {
+  text-decoration: underline;
+}
 .loginButton {
   width: 100%;
   height: 46px;
@@ -96,133 +121,47 @@
     background-color 0.2s ease,
     transform 0.2s ease;
 }
-
 .loginButton:hover {
   background: var(--color-teal-dark);
   transform: translateY(-1px);
 }
-
 .loginButton:active {
   transform: translateY(0);
 }
-
-.inputGroup input.errorInput {
-  border-color: #ef4444;
+.loginButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
-
-.inputGroup input.errorInput:focus {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
-}
-
-.errorMessage {
-  color: #ef4444;
-  font-size: 12px;
-}
-.loginOptions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: -0.25rem;
-  margin-bottom: 1rem;
-  font-size: 0.85rem;
-}
-
-.rememberMe {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #6b7280;
-  cursor: pointer;
-}
-
-.rememberMe input {
-  cursor: pointer;
-}
-
-.forgotPassword {
-  border: none;
-  background: none;
-  padding: 0;
-  color: #0fbfb0;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.forgotPassword:hover {
-  text-decoration: underline;
-}
-
-.passwordWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.passwordWrapper input {
-  width: 100%;
-  padding-right: 60px;
-}
-
-.passwordToggle {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  border: none;
-  background: transparent;
-  color: #0fbfb0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .signupText {
   text-align: center;
   margin-top: 1.25rem;
   font-size: 0.9rem;
   color: #6b7280;
 }
-
 .signupLink {
   border: none;
   background: none;
   padding: 0;
-
-  color: #0fbfb0;
+  color: var(--color-teal);
   font-size: inherit;
   font-weight: 600;
   cursor: pointer;
 }
-
 .signupLink:hover {
   text-decoration: underline;
 }
-
 .securityText {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-
   font-size: 0.75rem;
   color: #9ca3af;
 }
-
-.securityText svg {
-  font-size: 0.7rem;
-}
-
-.loginButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
 @media (max-width: 480px) {
   .loginCard {
     padding: 2rem 1.5rem;
   }
-
   .header h1 {
     font-size: 1.5rem;
   }

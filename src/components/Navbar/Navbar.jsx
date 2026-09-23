@@ -2,8 +2,8 @@ import {
   FiHome,
   FiUsers,
   FiCalendar,
-  FiMessageSquare,
-  FiCreditCard,
+  // FiMessageSquare,
+  // FiCreditCard,
   FiLogOut,
 } from "react-icons/fi";
 import Logo from "../../assets/Logo.png";
@@ -15,8 +15,8 @@ const NAV_ITEMS = [
   { label: "Overview", icon: FiHome, path: "/overview" },
   { label: "Patients", icon: FiUsers, path: "/dashboard" },
   { label: "Schedule", icon: FiCalendar, path: "/schedule" },
-  { label: "Message", icon: FiMessageSquare, path: "/message" },
-  { label: "Transactions", icon: FiCreditCard, path: "/transaction" },
+  // { label: "Message", icon: FiMessageSquare, path: "/message" },
+  // { label: "Transactions", icon: FiCreditCard, path: "/transaction" },
 ];
 
 const hospital = {

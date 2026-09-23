@@ -144,3 +144,7 @@
 .logoutButton span {
   display: inline;
 }
+
+.logoutButton:hover {
+  background: var(--color-teal-dark);
+}

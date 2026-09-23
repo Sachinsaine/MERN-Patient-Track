@@ -103,10 +103,12 @@ export const PatientInfo = () => {
             </div>
 
             <div className={styles.infoItem}>
-              <span className={styles.label}></span>
-              <button className="bttn" onClick={handleOpenEditInfo}>
-                Edit profile
-              </button>
+              <div className={styles.dblock}>
+                <span className={styles.label}></span>
+                <button className="bttn" onClick={handleOpenEditInfo}>
+                  Edit profile
+                </button>
+              </div>
             </div>
           </div>
         </section>

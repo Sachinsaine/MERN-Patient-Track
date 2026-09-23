@@ -90,26 +90,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
   gap: 0.5rem;
-
   height: 46px;
-
   padding: 0 1.1rem;
-
   background: var(--color-teal);
   color: #ffffff;
-
   border-radius: 12px;
-
   text-decoration: none;
-
   font-size: 0.85rem;
   font-weight: 600;
-
   white-space: nowrap;
-
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .bttn:hover {
@@ -180,4 +172,14 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #d8dce6;
   border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .bttn {
+    width: 100%;
+  }
+  .bttn:hover {
+    background: var(--color-teal-dark);
+    transform: translateY(-1px);
+  }
 }

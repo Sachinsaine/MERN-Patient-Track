@@ -62,6 +62,7 @@
 
 .primaryButton:hover {
   background: var(--color-teal-dark);
+  transform: translateY(-1px);
 }
 
 .summaryGrid {
@@ -313,7 +314,6 @@
 }
 
 .viewButton:hover {
-  color: var(--color-navy);
   text-decoration: underline;
 }
 

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./login.module.css";
@@ -5,6 +6,7 @@ import logo from "../../assets/Logo.png";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaLock } from "react-icons/fa6";
 
 const loginSchema = z.object({
   email: z
@@ -13,17 +15,26 @@ const loginSchema = z.object({
     .min(1, "Email is required")
     .email("Enter a valid email"),
 
-  password: z.string().min(6, "Password is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+
+  rememberMe: z.boolean().optional(),
 });
 
 export const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
   });
 
   const navigate = useNavigate();
@@ -42,6 +53,7 @@ export const Login = () => {
           body: JSON.stringify({
             email: data.email,
             password: data.password,
+            rememberMe: data.rememberMe,
           }),
         },
       );
@@ -58,7 +70,10 @@ export const Login = () => {
       await checkAuth();
 
       reset();
-      navigate("/overview");
+
+      navigate("/overview", {
+        replace: true,
+      });
     } catch (error) {
       console.error("LOGIN ERROR:", error);
       alert("Something went wrong");
@@ -67,7 +82,8 @@ export const Login = () => {
 
   return (
     <div className={styles.loginPage}>
-      <img src={logo} alt="" className={styles.logoImg} />
+      <img src={logo} alt="Patient Track" className={styles.logoImg} />
+
       <div className={styles.loginCard}>
         <div className={styles.header}>
           <h1>Welcome Back</h1>
@@ -75,6 +91,7 @@ export const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          {/* Email */}
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
 
@@ -93,16 +110,28 @@ export const Login = () => {
             )}
           </div>
 
+          {/* Password */}
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password</label>
 
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              {...register("password")}
-              className={errors.email ? styles.errorInput : ""}
-            />
+            <div className={styles.passwordWrapper}>
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                {...register("password")}
+                className={errors.password ? styles.errorInput : ""}
+              />
+
+              <button
+                type="button"
+                className={styles.passwordToggle}
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+
             {errors.password && (
               <small className={styles.errorMessage}>
                 {errors.password.message}
@@ -110,10 +139,49 @@ export const Login = () => {
             )}
           </div>
 
-          <button type="submit" className={styles.loginButton}>
-            Login
+          {/* Remember + Forgot Password */}
+          <div className={styles.loginOptions}>
+            <label className={styles.rememberMe}>
+              <input type="checkbox" {...register("rememberMe")} />
+
+              <span>Remember me</span>
+            </label>
+
+            <button
+              type="button"
+              className={styles.forgotPassword}
+              onClick={() => navigate("/forgot-password")}
+            >
+              Forgot password?
+            </button>
+          </div>
+
+          {/* Login */}
+          <button
+            type="submit"
+            className={styles.loginButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Signing in..." : "Login"}
           </button>
         </form>
+
+        {/* Signup */}
+        <p className={styles.signupText}>
+          Don't have an account?{" "}
+          <button
+            type="button"
+            className={styles.signupLink}
+            onClick={() => navigate("/register")}
+          >
+            Sign up
+          </button>
+        </p>
+
+        {/* Security */}
+        <p className={styles.securityText}>
+          <FaLock /> <span>Secure access to Patient Track</span>
+        </p>
       </div>
     </div>
   );

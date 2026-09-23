@@ -119,6 +119,105 @@
   color: #ef4444;
   font-size: 12px;
 }
+.loginOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -0.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.rememberMe input {
+  cursor: pointer;
+}
+
+.forgotPassword {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #0fbfb0;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 60px;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+  color: #0fbfb0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signupText {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.signupLink {
+  border: none;
+  background: none;
+  padding: 0;
+
+  color: #0fbfb0;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+.securityText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.securityText svg {
+  font-size: 0.7rem;
+}
+
+.loginButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 @media (max-width: 480px) {
   .loginCard {

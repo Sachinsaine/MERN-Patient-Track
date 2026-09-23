@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Navbar } from "./components/Navbar/Navbar";
 import { PatientContextProvider } from "./context/PatientContextProvider";
@@ -15,102 +16,113 @@ import { Login } from "./components/Login/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { AuthContextProvider } from "./context/AuthContextProvider";
 import { useAuth } from "./hooks/useAuth";
+
 function AppContent() {
   const { user, loading } = useAuth();
+
   if (loading) {
     return <p>Loading...</p>;
   }
+
   return (
     <>
-      {" "}
-      {user && <Navbar />}{" "}
+      {user && <Navbar />}
+
       <Routes>
-        {" "}
-        <Route path="/" element={<Login />} />{" "}
+        {/* Anyone visiting the site goes to login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Login page */}
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/overview" replace /> : <Login />}
+        />
+
+        {/* Protected pages */}
         <Route
           path="/overview"
           element={
             <ProtectedRoute>
-              {" "}
-              <Overview />{" "}
+              <Overview />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              {" "}
-              <Dashboard />{" "}
+              <Dashboard />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/patientInfo"
           element={
             <ProtectedRoute>
-              {" "}
-              <PatientInfo />{" "}
+              <PatientInfo />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/patientDetails/:id"
           element={
             <ProtectedRoute>
-              {" "}
-              <PatientDetails />{" "}
+              <PatientDetails />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/addPatient"
           element={
             <ProtectedRoute>
-              {" "}
-              <AddPatient />{" "}
+              <AddPatient />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/schedule"
           element={
             <ProtectedRoute>
-              {" "}
-              <Schedule />{" "}
+              <Schedule />
             </ProtectedRoute>
           }
-        />{" "}
+        />
+
         <Route
           path="/appointment"
           element={
             <ProtectedRoute>
-              {" "}
-              <AppointmentForm />{" "}
+              <AppointmentForm />
             </ProtectedRoute>
           }
-        />{" "}
-      </Routes>{" "}
-      {user && <Footer />}{" "}
+        />
+
+        {/* Unknown URL */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+
+      {user && <Footer />}
     </>
   );
 }
+
 function App() {
   return (
-    <>
-      {" "}
-      <BrowserRouter>
-        {" "}
-        <AuthContextProvider>
-          {" "}
-          <PatientContextProvider>
-            {" "}
-            <AppContent />{" "}
-          </PatientContextProvider>{" "}
-        </AuthContextProvider>{" "}
-      </BrowserRouter>{" "}
-      <ToastContainer />{" "}
-    </>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <PatientContextProvider>
+          <AppContent />
+        </PatientContextProvider>
+      </AuthContextProvider>
+
+      <ToastContainer />
+    </BrowserRouter>
   );
 }
+
 export default App;

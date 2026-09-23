@@ -27,6 +27,23 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+
+      setUser(null);
+    } catch (error) {
+      console.error("LOGOUT ERROR:", error);
+    }
+  };
+
   useEffect(() => {
     checkAuth();
   }, []);
@@ -37,6 +54,7 @@ export const AuthContextProvider = ({ children }) => {
         user,
         loading,
         checkAuth,
+        logout,
       }}
     >
       {children}

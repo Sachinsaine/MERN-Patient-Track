@@ -1,11 +1,22 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
+import { useAuth } from "./useAuth";
 
 export const usePatients = () => {
+  const { user, loading: authLoading } = useAuth();
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (authLoading) return;
+
+    if (!user) {
+      setPatients([]);
+      setLoading(false);
+      return;
+    }
+
     const fetchPatients = async () => {
       try {
         const response = await fetch(
@@ -31,7 +42,7 @@ export const usePatients = () => {
     };
 
     fetchPatients();
-  }, []);
+  }, [user, authLoading]);
 
   return {
     patients,

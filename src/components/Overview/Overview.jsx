@@ -74,7 +74,7 @@ export const Overview = () => {
             </p>
 
             <h1>
-              Good morning, <span>Dr. Simmons</span>
+              Welcome To, <span>Tech.Care</span>
             </h1>
 
             <p className={styles.subtitle}>

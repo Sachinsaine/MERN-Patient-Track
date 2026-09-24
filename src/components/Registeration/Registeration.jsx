@@ -8,6 +8,8 @@ import styles from "./registraion.module.css";
 import logo from "../../assets/Logo.png";
 import { FaLock } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const registrationSchema = z
   .object({
@@ -151,7 +153,7 @@ export const Registration = () => {
                 className={styles.passwordToggle}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
 
@@ -179,7 +181,7 @@ export const Registration = () => {
                 className={styles.passwordToggle}
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
               >
-                {showConfirmPassword ? "Hide" : "Show"}
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
 

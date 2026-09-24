@@ -19,12 +19,6 @@ const NAV_ITEMS = [
   // { label: "Transactions", icon: FiCreditCard, path: "/transaction" },
 ];
 
-const hospital = {
-  name: "TechCare Hospital",
-  title: "Healthcare Center",
-  avatar: "https://i.pravatar.cc/40?img=12",
-};
-
 export const Navbar = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -63,17 +57,6 @@ export const Navbar = () => {
       </nav>
 
       <div className={styles.profile}>
-        <img
-          src={hospital.avatar}
-          alt={hospital.name}
-          className={styles.avatar}
-        />
-
-        <div className={styles.profileText}>
-          <p className={styles.profileName}>{hospital.name}</p>
-          <p className={styles.profileTitle}>{hospital.title}</p>
-        </div>
-
         <button
           type="button"
           onClick={handleLogout}

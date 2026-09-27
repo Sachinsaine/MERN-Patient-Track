@@ -351,7 +351,208 @@
   opacity: 0.65;
   cursor: not-allowed;
 }
+/* =========================
+   Dynamic Form Sections
+========================= */
 
+.dynamicCard {
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #edf0f4;
+  border-radius: 14px;
+  background: #fafcfc;
+}
+
+.dynamicHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dynamicHeader h3 {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+/* Add button */
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--color-teal);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--color-teal);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.addButton:hover {
+  background: var(--color-teal);
+  color: #ffffff;
+}
+
+.addButton:active {
+  transform: scale(0.98);
+}
+
+/* Remove button */
+
+.removeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 11px;
+  border: none;
+  border-radius: 8px;
+  background: #fdeceb;
+  color: #ef4444;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.removeButton:hover {
+  background: #fbd5d2;
+}
+
+.removeButton:active {
+  transform: scale(0.97);
+}
+
+/* Textarea */
+
+.formGroup textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 14px;
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #26364d;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.formGroup textarea::placeholder {
+  color: #a1a9b4;
+}
+
+.formGroup textarea:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
+}
+
+/* Full width field */
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+/* Lab result row */
+
+.labRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.labRow input {
+  flex: 1;
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid #dce1e7;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #26364d;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.labRow input::placeholder {
+  color: #a1a9b4;
+}
+
+.labRow input:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+  .dynamicCard {
+    padding: 16px;
+  }
+
+  .dynamicHeader {
+    align-items: flex-start;
+  }
+
+  .labRow {
+    align-items: stretch;
+  }
+
+  .labRow input {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .dynamicHeader {
+    flex-direction: column;
+  }
+
+  .removeButton {
+    width: 100%;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+
+  .labRow {
+    flex-direction: column;
+  }
+
+  .labRow .removeButton {
+    width: 100%;
+  }
+}
 @media (max-width: 768px) {
   .page {
     padding: 0px;

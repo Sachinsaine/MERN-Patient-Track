@@ -202,7 +202,6 @@ export const Registration = () => {
           </button>
         </form>
 
-        {/* Login */}
         <p className={styles.signupText}>
           Already have an account?{" "}
           <button
@@ -210,7 +209,7 @@ export const Registration = () => {
             className={styles.signupLink}
             onClick={() => navigate("/login")}
           >
-            Login
+            Sign in
           </button>
         </p>
 

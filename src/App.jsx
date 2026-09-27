@@ -102,7 +102,6 @@ function AppContent() {
           }
         />
 
-        {/* Unknown URL */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
 

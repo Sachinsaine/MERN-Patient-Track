@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import {
   FiUser,
@@ -8,6 +8,11 @@ import {
   FiShield,
   FiUpload,
   FiCheck,
+  FiActivity,
+  FiClipboard,
+  FiFileText,
+  FiPlus,
+  FiTrash2,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -15,6 +20,80 @@ import styles from "./addpatient.module.css";
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { toast } from "react-toastify";
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const LEVEL_OPTIONS = ["Lower than Average", "Normal", "Higher than Average"];
+
+const DIAGNOSTIC_STATUS_OPTIONS = [
+  "Actively being treated",
+  "Under observation",
+  "Untreated",
+];
+
+const COMMON_LAB_RESULTS = [
+  "Complete Blood Count (CBC)",
+  "Echocardiogram",
+  "Liver Function Tests",
+  "Mammography",
+  "Urinalysis",
+  "Ultrasound",
+  "Prostate-Specific Antigen (PSA)",
+  "Hemoglobin A1C",
+  "Lipid Panel",
+  "Radiology Report",
+];
+
+const digitsOnly = (val) => (val || "").replace(/\D/g, "");
+
+const phoneField = (message) =>
+  z
+    .string()
+    .min(1, message)
+    .refine(
+      (val) => digitsOnly(val).length === 10,
+      "Enter a valid 10 digit phone number",
+    );
+
+const vitalSchema = z.object({
+  value: z.coerce.number({ message: "Value is required" }),
+  levels: z.string().min(1, "Level is required"),
+});
+
+const diagnosisEntrySchema = z.object({
+  month: z.string().min(1, "Month is required"),
+  year: z.coerce
+    .number({ message: "Year is required" })
+    .int("Enter a valid year")
+    .min(1900, "Enter a valid year")
+    .max(2100, "Enter a valid year"),
+  blood_pressure: z.object({
+    systolic: vitalSchema,
+    diastolic: vitalSchema,
+  }),
+  heart_rate: vitalSchema,
+  respiratory_rate: vitalSchema,
+  temperature: vitalSchema,
+});
+
+const diagnosticListItemSchema = z.object({
+  name: z.string().min(1, "Condition name is required"),
+  description: z.string().min(1, "Description is required"),
+  status: z.string().min(1, "Status is required"),
+});
 
 const patientSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
@@ -31,15 +110,9 @@ const patientSchema = z.object({
 
   date_of_birth: z.string().min(1, "Date of birth is required"),
 
-  phone_number: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^\d{10}$/, "Enter valid 10 digit phone number"),
+  phone_number: phoneField("Phone number is required"),
 
-  emergency_contact: z
-    .string()
-    .min(1, "Emergency number is required")
-    .regex(/^\d{10}$/, "Enter valid 10 digit number"),
+  emergency_contact: phoneField("Emergency number is required"),
 
   profile_picture: z
     .instanceof(FileList)
@@ -49,13 +122,39 @@ const patientSchema = z.object({
       "Only image files are allowed",
     ),
 
-  insurance_type: z.string().min(1, "Insurance type is required"),
+  insurance_type: z.string().trim().min(1, "Insurance provider is required"),
+
+  diagnosis_history: z
+    .array(diagnosisEntrySchema)
+    .min(1, "Add at least one vitals entry"),
+
+  diagnostic_list: z.array(diagnosticListItemSchema).default([]),
+
+  lab_results: z.array(z.string()).default([]),
+
+  custom_lab_results: z
+    .array(z.object({ value: z.string().min(1, "Enter a test name") }))
+    .default([]),
 });
+
+const emptyVital = { value: "", levels: "" };
+
+const emptyDiagnosisEntry = {
+  month: "",
+  year: new Date().getFullYear(),
+  blood_pressure: { systolic: { ...emptyVital }, diastolic: { ...emptyVital } },
+  heart_rate: { ...emptyVital },
+  respiratory_rate: { ...emptyVital },
+  temperature: { ...emptyVital },
+};
+
+const emptyDiagnosticItem = { name: "", description: "", status: "" };
 
 export const AddPatient = () => {
   const { setPatients, loading, error } = useContext(PatientContext);
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -71,8 +170,30 @@ export const AddPatient = () => {
       emergency_contact: "",
       profile_picture: undefined,
       insurance_type: "",
+      diagnosis_history: [emptyDiagnosisEntry],
+      diagnostic_list: [],
+      lab_results: [],
+      custom_lab_results: [],
     },
   });
+
+  const {
+    fields: diagnosisFields,
+    append: appendDiagnosis,
+    remove: removeDiagnosis,
+  } = useFieldArray({ control, name: "diagnosis_history" });
+
+  const {
+    fields: diagnosticFields,
+    append: appendDiagnostic,
+    remove: removeDiagnostic,
+  } = useFieldArray({ control, name: "diagnostic_list" });
+
+  const {
+    fields: customLabFields,
+    append: appendCustomLab,
+    remove: removeCustomLab,
+  } = useFieldArray({ control, name: "custom_lab_results" });
 
   const onSubmit = async (data) => {
     const formdata = new FormData();
@@ -81,10 +202,24 @@ export const AddPatient = () => {
     formdata.append("age", data.age);
     formdata.append("gender", data.gender);
     formdata.append("date_of_birth", data.date_of_birth);
-    formdata.append("phone_number", data.phone_number);
-    formdata.append("emergency_contact", data.emergency_contact);
+    formdata.append("phone_number", digitsOnly(data.phone_number));
+    formdata.append("emergency_contact", digitsOnly(data.emergency_contact));
     formdata.append("profile_picture", data.profile_picture[0]);
     formdata.append("insurance_type", data.insurance_type);
+
+    const labResults = [
+      ...data.lab_results,
+      ...data.custom_lab_results
+        .map((item) => item.value.trim())
+        .filter(Boolean),
+    ];
+
+    formdata.append(
+      "diagnosis_history",
+      JSON.stringify(data.diagnosis_history),
+    );
+    formdata.append("diagnostic_list", JSON.stringify(data.diagnostic_list));
+    formdata.append("lab_results", JSON.stringify(labResults));
 
     try {
       const response = await fetch(
@@ -121,19 +256,6 @@ export const AddPatient = () => {
 
   return (
     <main className={styles.page}>
-      {/* <div className={styles.pageHeader}>
-        <div>
-          <Link to="/" className={styles.backButton}>
-            <FiArrowLeft size={18} />
-            Back to Overview
-          </Link>
-
-          <h1>Add New Patient</h1>
-
-          <p>Enter the patient's information to create a new patient record.</p>
-        </div>
-      </div> */}
-
       <form className={styles.formCard} onSubmit={handleSubmit(onSubmit)}>
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
@@ -148,7 +270,6 @@ export const AddPatient = () => {
           </div>
 
           <div className={styles.formGrid}>
-            {/* Name */}
             <div className={styles.formGroup}>
               <label>
                 Full Name
@@ -232,7 +353,6 @@ export const AddPatient = () => {
           </div>
 
           <div className={styles.formGrid}>
-            {/* Phone */}
             <div className={styles.formGroup}>
               <label>
                 Phone Number
@@ -244,8 +364,7 @@ export const AddPatient = () => {
 
                 <input
                   type="tel"
-                  placeholder="10 digit phone number"
-                  maxLength="10"
+                  placeholder="e.g. (711) 984-6696"
                   {...register("phone_number")}
                 />
               </div>
@@ -255,7 +374,6 @@ export const AddPatient = () => {
               )}
             </div>
 
-            {/* Emergency */}
             <div className={styles.formGroup}>
               <label>
                 Emergency Contact
@@ -267,8 +385,7 @@ export const AddPatient = () => {
 
                 <input
                   type="tel"
-                  placeholder="Emergency contact number"
-                  maxLength="10"
+                  placeholder="e.g. (680) 653-9512"
                   {...register("emergency_contact")}
                 />
               </div>
@@ -295,27 +412,449 @@ export const AddPatient = () => {
           <div className={styles.formGrid}>
             <div className={styles.formGroup}>
               <label>
-                Insurance Type
+                Insurance Provider
                 <span>*</span>
               </label>
 
-              <select
+              <input
+                type="text"
+                placeholder="e.g. Premier Auto Corporation"
                 {...register("insurance_type")}
                 className={errors.insurance_type ? styles.errorInput : ""}
-              >
-                <option value="">Select insurance type</option>
-                <option value="Private Insurance">Private Insurance</option>
-                <option value="Medicare">Medicare</option>
-                <option value="Medicaid">Medicaid</option>
-                <option value="Government">Government</option>
-                <option value="Self Pay">Self Pay</option>
-              </select>
+              />
 
               {errors.insurance_type && (
                 <small>{errors.insurance_type.message}</small>
               )}
             </div>
           </div>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FiActivity size={20} />
+            </div>
+
+            <div>
+              <h2>Vitals / Diagnosis History</h2>
+              <p>Add one entry per recorded month</p>
+            </div>
+          </div>
+
+          {errors.diagnosis_history?.root && (
+            <small className={styles.uploadError}>
+              {errors.diagnosis_history.root.message}
+            </small>
+          )}
+
+          {diagnosisFields.map((field, index) => (
+            <div className={styles.arrayItem} key={field.id}>
+              <div className={styles.arrayItemHeader}>
+                <strong>Entry {index + 1}</strong>
+
+                {diagnosisFields.length > 1 && (
+                  <button
+                    type="button"
+                    className={styles.removeButton}
+                    onClick={() => removeDiagnosis(index)}
+                  >
+                    <FiTrash2 size={16} />
+                    Remove
+                  </button>
+                )}
+              </div>
+
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                  <label>
+                    Month
+                    <span>*</span>
+                  </label>
+
+                  <select
+                    {...register(`diagnosis_history.${index}.month`)}
+                    className={
+                      errors.diagnosis_history?.[index]?.month
+                        ? styles.errorInput
+                        : ""
+                    }
+                  >
+                    <option value="">Select month</option>
+                    {MONTHS.map((month) => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors.diagnosis_history?.[index]?.month && (
+                    <small>
+                      {errors.diagnosis_history[index].month.message}
+                    </small>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    Year
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="e.g. 2024"
+                    {...register(`diagnosis_history.${index}.year`)}
+                    className={
+                      errors.diagnosis_history?.[index]?.year
+                        ? styles.errorInput
+                        : ""
+                    }
+                  />
+
+                  {errors.diagnosis_history?.[index]?.year && (
+                    <small>
+                      {errors.diagnosis_history[index].year.message}
+                    </small>
+                  )}
+                </div>
+              </div>
+
+              <p className={styles.vitalGroupLabel}>Blood Pressure</p>
+
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                  <label>
+                    Systolic
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="Value"
+                    {...register(
+                      `diagnosis_history.${index}.blood_pressure.systolic.value`,
+                    )}
+                  />
+
+                  <select
+                    {...register(
+                      `diagnosis_history.${index}.blood_pressure.systolic.levels`,
+                    )}
+                  >
+                    <option value="">Select level</option>
+                    {LEVEL_OPTIONS.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    Diastolic
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="Value"
+                    {...register(
+                      `diagnosis_history.${index}.blood_pressure.diastolic.value`,
+                    )}
+                  />
+
+                  <select
+                    {...register(
+                      `diagnosis_history.${index}.blood_pressure.diastolic.levels`,
+                    )}
+                  >
+                    <option value="">Select level</option>
+                    {LEVEL_OPTIONS.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                  <label>
+                    Heart Rate (bpm)
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="Value"
+                    {...register(`diagnosis_history.${index}.heart_rate.value`)}
+                  />
+
+                  <select
+                    {...register(
+                      `diagnosis_history.${index}.heart_rate.levels`,
+                    )}
+                  >
+                    <option value="">Select level</option>
+                    {LEVEL_OPTIONS.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    Respiratory Rate (breaths/min)
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="Value"
+                    {...register(
+                      `diagnosis_history.${index}.respiratory_rate.value`,
+                    )}
+                  />
+
+                  <select
+                    {...register(
+                      `diagnosis_history.${index}.respiratory_rate.levels`,
+                    )}
+                  >
+                    <option value="">Select level</option>
+                    {LEVEL_OPTIONS.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    Temperature (°F)
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="number"
+                    placeholder="Value"
+                    {...register(
+                      `diagnosis_history.${index}.temperature.value`,
+                    )}
+                  />
+
+                  <select
+                    {...register(
+                      `diagnosis_history.${index}.temperature.levels`,
+                    )}
+                  >
+                    <option value="">Select level</option>
+                    {LEVEL_OPTIONS.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={() => appendDiagnosis(emptyDiagnosisEntry)}
+          >
+            <FiPlus size={16} />
+            Add another month
+          </button>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FiClipboard size={20} />
+            </div>
+
+            <div>
+              <h2>Diagnostic List</h2>
+              <p>Known or suspected conditions</p>
+            </div>
+          </div>
+
+          {diagnosticFields.map((field, index) => (
+            <div className={styles.arrayItem} key={field.id}>
+              <div className={styles.arrayItemHeader}>
+                <strong>Condition {index + 1}</strong>
+
+                <button
+                  type="button"
+                  className={styles.removeButton}
+                  onClick={() => removeDiagnostic(index)}
+                >
+                  <FiTrash2 size={16} />
+                  Remove
+                </button>
+              </div>
+
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
+                  <label>
+                    Condition Name
+                    <span>*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="e.g. Type 2 Diabetes"
+                    {...register(`diagnostic_list.${index}.name`)}
+                    className={
+                      errors.diagnostic_list?.[index]?.name
+                        ? styles.errorInput
+                        : ""
+                    }
+                  />
+
+                  {errors.diagnostic_list?.[index]?.name && (
+                    <small>{errors.diagnostic_list[index].name.message}</small>
+                  )}
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>
+                    Status
+                    <span>*</span>
+                  </label>
+
+                  <select
+                    {...register(`diagnostic_list.${index}.status`)}
+                    className={
+                      errors.diagnostic_list?.[index]?.status
+                        ? styles.errorInput
+                        : ""
+                    }
+                  >
+                    <option value="">Select status</option>
+                    {DIAGNOSTIC_STATUS_OPTIONS.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors.diagnostic_list?.[index]?.status && (
+                    <small>
+                      {errors.diagnostic_list[index].status.message}
+                    </small>
+                  )}
+                </div>
+
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                  <label>
+                    Description
+                    <span>*</span>
+                  </label>
+
+                  <textarea
+                    rows={2}
+                    placeholder="Brief description of the condition"
+                    {...register(`diagnostic_list.${index}.description`)}
+                    className={
+                      errors.diagnostic_list?.[index]?.description
+                        ? styles.errorInput
+                        : ""
+                    }
+                  />
+
+                  {errors.diagnostic_list?.[index]?.description && (
+                    <small>
+                      {errors.diagnostic_list[index].description.message}
+                    </small>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={() => appendDiagnostic(emptyDiagnosticItem)}
+          >
+            <FiPlus size={16} />
+            Add condition
+          </button>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FiFileText size={20} />
+            </div>
+
+            <div>
+              <h2>Lab Results</h2>
+              <p>Select any tests on file, or add your own</p>
+            </div>
+          </div>
+
+          <div className={styles.checkboxGrid}>
+            {COMMON_LAB_RESULTS.map((test) => (
+              <label className={styles.checkboxItem} key={test}>
+                <input
+                  type="checkbox"
+                  value={test}
+                  {...register("lab_results")}
+                />
+                {test}
+              </label>
+            ))}
+          </div>
+
+          {customLabFields.map((field, index) => (
+            <div className={styles.arrayItem} key={field.id}>
+              <div className={styles.formGroup}>
+                <label>Custom Test Name</label>
+
+                <div className={styles.inputWithIcon}>
+                  <input
+                    type="text"
+                    placeholder="e.g. Vitamin D Test"
+                    {...register(`custom_lab_results.${index}.value`)}
+                  />
+
+                  <button
+                    type="button"
+                    className={styles.removeButton}
+                    onClick={() => removeCustomLab(index)}
+                  >
+                    <FiTrash2 size={16} />
+                  </button>
+                </div>
+
+                {errors.custom_lab_results?.[index]?.value && (
+                  <small>
+                    {errors.custom_lab_results[index].value.message}
+                  </small>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={() => appendCustomLab({ value: "" })}
+          >
+            <FiPlus size={16} />
+            Add custom test
+          </button>
         </section>
 
         <section className={styles.section}>

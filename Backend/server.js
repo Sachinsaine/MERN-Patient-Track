@@ -126,14 +126,50 @@ app.get("/api/patient/:id", async (req, res) => {
 //   }
 // });
 
+// app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
+//   try {
+//     console.log("========== ADD PATIENT ==========");
+//     console.log("Received body:", req.body);
+//     console.log("Received file:", req.file);
+
+//     const patient = new Patient({
+//       ...req.body,
+//       profile_picture: req.file ? req.file.originalname : "",
+//     });
+
+//     const savedPatient = await patient.save();
+
+//     res.status(201).json(savedPatient);
+//   } catch (error) {
+//     console.error("CREATE PATIENT ERROR:", error);
+
+//     res.status(500).json({
+//       message: "Failed to create patient",
+//       error: error.message,
+//     });
+//   }
+// });
+
 app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
   try {
     console.log("========== ADD PATIENT ==========");
     console.log("Received body:", req.body);
     console.log("Received file:", req.file);
 
+    const parseJSON = (value, fallback) => {
+      if (!value) return fallback;
+      try {
+        return JSON.parse(value);
+      } catch {
+        return fallback;
+      }
+    };
+
     const patient = new Patient({
       ...req.body,
+      diagnosis_history: parseJSON(req.body.diagnosis_history, []),
+      diagnostic_list: parseJSON(req.body.diagnostic_list, []),
+      lab_results: parseJSON(req.body.lab_results, []),
       profile_picture: req.file ? req.file.originalname : "",
     });
 

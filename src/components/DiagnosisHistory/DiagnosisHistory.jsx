@@ -16,6 +16,14 @@ import { DiagnosticList } from "../DiagnosticList/DiagnosticList";
 import { DiagnosisHistorySkeleton } from "../DiagnosisHistorySkeleton/DiagnosisHistorySkeleton";
 import { motion } from "motion/react";
 
+const sortByMostRecent = (history) => {
+  return [...history].sort((a, b) => {
+    const dateA = new Date(`${a.month} 1, ${a.year}`);
+    const dateB = new Date(`${b.month} 1, ${b.year}`);
+    return dateB - dateA;
+  });
+};
+
 export const DiagnosisHistory = () => {
   const { patient, loading } = useContext(PatientContext);
 
@@ -31,7 +39,21 @@ export const DiagnosisHistory = () => {
     return <h1>No patient is selected</h1>;
   }
 
-  const latestDiagnosis = patient.diagnosis_history[0];
+  if (!patient.diagnosis_history || patient.diagnosis_history.length === 0) {
+    return (
+      <div className={styles.mainCont}>
+        <div className={styles.wrapper}>
+          <h2 className={styles.heading}>Diagnosis History</h2>
+          <p>No diagnosis history recorded for this patient yet.</p>
+        </div>
+        <DiagnosticList />
+      </div>
+    );
+  }
+
+  const sortedHistory = sortByMostRecent(patient.diagnosis_history);
+
+  const latestDiagnosis = sortedHistory[0];
 
   const heartRate = latestDiagnosis.heart_rate.value;
   const temperature = latestDiagnosis.temperature.value;
@@ -47,7 +69,7 @@ export const DiagnosisHistory = () => {
   const diastolic = latestDiagnosis.blood_pressure.diastolic.value;
   const diastolicLevel = latestDiagnosis.blood_pressure.diastolic.levels;
 
-  const bloodPressureData = patient.diagnosis_history
+  const bloodPressureData = sortedHistory
     .slice(0, 6)
     .reverse()
     .map((data) => ({

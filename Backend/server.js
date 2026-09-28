@@ -15,9 +15,11 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 // For Deployment
+const FRONTEND_URL = "https://mern-patient-track-axkc.vercel.app";
+
 app.use(
   cors({
-    origin: "https://mern-patient-track-axkc.vercel.app",
+    origin: FRONTEND_URL,
     credentials: true,
   }),
 );

@@ -822,7 +822,7 @@ export const AddPatient = () => {
               <div className={styles.formGroup}>
                 <label>Custom Test Name</label>
 
-                <div className={styles.inputWithIcon}>
+                <div className={styles.customLabRow}>
                   <input
                     type="text"
                     placeholder="e.g. Vitamin D Test"

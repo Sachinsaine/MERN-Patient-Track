@@ -1,27 +1,28 @@
 .page {
   width: 100%;
   min-height: 100%;
-  padding: 20px;
+  padding: 24px;
   background: var(--color-background);
 }
 
+/* =========================
+   Page Header
+========================= */
+
 .pageHeader {
-  margin-bottom: 22px;
+  max-width: 1100px;
+  margin: 0 auto 24px;
 }
 
 .backButton {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
-  margin-bottom: 12px;
-
+  margin-bottom: 14px;
   color: var(--color-muted);
   text-decoration: none;
-
   font-size: 14px;
   font-weight: 500;
-
   transition: color 0.2s ease;
 }
 
@@ -30,47 +31,51 @@
 }
 
 .pageHeader h1 {
-  color: var(--color-navy);
-
-  font-size: 27px;
-  font-weight: 700;
-
   margin: 0;
+  color: var(--color-navy);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .pageHeader p {
-  margin-top: 6px;
-
+  margin: 6px 0 0;
   color: var(--color-muted);
-
   font-size: 14px;
 }
+
+/* =========================
+   Main Form Card
+========================= */
 
 .formCard {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-
   background: #ffffff;
-
-  border-radius: var(--radius-card);
-
+  border: 1px solid #e8ebef;
+  border-radius: 14px;
   box-shadow: var(--shadow-card);
-
   overflow: hidden;
 }
 
-.section {
-  padding: 25px 30px;
+/* =========================
+   Sections
+========================= */
 
-  border-bottom: 1px solid #edf0f4;
+.section {
+  padding: 28px 32px;
+  border-bottom: 1px solid #edf0f3;
+}
+
+.section:last-of-type {
+  border-bottom: none;
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 13px;
-
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -82,72 +87,384 @@
   align-items: center;
   justify-content: center;
 
-  border-radius: 12px;
-
-  background: #e7f7f5;
-  color: var(--color-teal);
-
   flex-shrink: 0;
+
+  border-radius: 10px;
+  background: #e9f8f6;
+  color: var(--color-teal);
 }
 
 .sectionHeader h2 {
   margin: 0;
-
   color: var(--color-navy);
-
   font-size: 17px;
   font-weight: 650;
 }
 
 .sectionHeader p {
-  margin-top: 4px;
-
+  margin: 4px 0 0;
   color: var(--color-muted);
-
   font-size: 13px;
 }
+
+/* =========================
+   Form Grid
+========================= */
 
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 20px 24px;
+  gap: 22px 24px;
 }
+
+/* =========================
+   Form Group
+========================= */
 
 .formGroup {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .formGroup label {
   margin-bottom: 8px;
-
   color: #344054;
-
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .formGroup label span {
   margin-left: 3px;
-
   color: #ef4444;
 }
 
+/* =========================
+   ALL INPUTS
+========================= */
+
 .formGroup input,
-.formGroup select {
+.formGroup select,
+.formGroup textarea {
   width: 100%;
-  height: 46px;
+  box-sizing: border-box;
 
-  padding: 0 14px;
-
-  border: 1px solid #dce1e7;
-  border-radius: 10px;
+  border: 1px solid #d9dee5;
+  border-radius: 9px;
 
   outline: none;
 
   background: #ffffff;
+  color: #26364d;
 
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Text / number / date / select */
+
+.formGroup input,
+.formGroup select {
+  height: 46px;
+  padding: 0 13px;
+}
+
+/* Placeholder */
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #a1a9b4;
+}
+
+/* Focus */
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: var(--color-teal);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.09);
+}
+
+/* Select */
+
+.formGroup select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* Error */
+
+.errorInput {
+  border-color: #ef4444 !important;
+}
+
+.errorInput:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+}
+
+/* Error message */
+
+.formGroup small {
+  margin-top: 6px;
+  color: #ef4444;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* =========================
+   Input With Icon
+========================= */
+
+.inputWithIcon {
+  position: relative;
+  width: 100%;
+}
+
+.inputWithIcon svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+
+  width: 16px;
+  height: 16px;
+
+  color: #98a2b3;
+
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.inputWithIcon input {
+  padding-left: 42px;
+}
+
+/* =========================
+   Textarea
+========================= */
+
+.formGroup textarea {
+  min-height: 100px;
+  padding: 12px 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* =========================
+   Full Width Field
+========================= */
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   Dynamic Form Items
+========================= */
+
+.arrayItem {
+  margin-bottom: 18px;
+  padding: 20px;
+
+  border: 1px solid #e1e5ea;
+  border-radius: 11px;
+
+  background: #ffffff;
+}
+
+.arrayItem .formGroup input {
+  margin-bottom: 5px;
+}
+
+.arrayItem:last-child {
+  margin-bottom: 0;
+}
+
+.arrayItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #edf0f3;
+}
+
+.arrayItemHeader strong {
+  color: var(--color-navy);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+/* =========================
+   Vital Labels
+========================= */
+
+.vitalGroupLabel {
+  margin: 18px 0 10px;
+
+  color: #475467;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================
+   Add Button
+========================= */
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 42px;
+  padding: 0 16px;
+
+  border: 1px dashed var(--color-teal);
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: var(--color-teal);
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.addButton:hover {
+  background: #eaf9f7;
+  border-color: var(--color-teal);
+}
+
+.addButton:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   Remove Button
+========================= */
+
+.removeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-height: 34px;
+  padding: 0 11px;
+
+  border: 1px solid #f3d1ce;
+  border-radius: 8px;
+
+  background: #fff7f6;
+  color: #c94f4f;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.removeButton:hover {
+  background: #fdeceb;
+  border-color: #efc1bd;
+}
+
+/* =========================
+   Checkbox / Lab Results
+========================= */
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  min-height: 42px;
+  padding: 0 12px;
+
+  border: 1px solid #e1e5ea;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #344054;
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.checkboxItem:hover {
+  border-color: #b8deda;
+  background: #f8fcfb;
+}
+
+.checkboxItem input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  accent-color: var(--color-teal);
+
+  cursor: pointer;
+}
+
+/* =========================
+   Custom Lab Input
+========================= */
+
+.customLabRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.customLabRow input {
+  flex: 1;
+  width: 100%;
+  height: 46px;
+  min-width: 0;
+
+  padding: 0 13px;
+
+  border: 1px solid #d9dee5;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
   color: #26364d;
 
   font-family: inherit;
@@ -158,74 +475,69 @@
     box-shadow 0.2s ease;
 }
 
-.formGroup input::placeholder {
+.customLabRow input::placeholder {
   color: #a1a9b4;
 }
 
-.formGroup input:focus,
-.formGroup select:focus {
+.customLabRow input:focus {
   border-color: var(--color-teal);
-
-  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
+  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.09);
 }
 
-.formGroup select {
-  cursor: pointer;
-}
+/* Delete button */
 
-.inputWithIcon {
-  position: relative;
+.customLabRow .removeButton {
+  flex-shrink: 0;
 
-  display: flex;
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+
+  padding: 0;
+
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 
-.inputWithIcon svg {
-  position: absolute;
-  left: 14px;
+/* =========================
+   Mobile
+========================= */
 
-  color: #9aa3af;
+@media (max-width: 500px) {
+  .customLabRow {
+    gap: 8px;
+  }
 
-  pointer-events: none;
+  .customLabRow input {
+    min-width: 0;
+  }
+
+  .customLabRow .removeButton {
+    width: 42px;
+    min-width: 42px;
+  }
 }
 
-.inputWithIcon input {
-  padding-left: 42px;
-}
-
-.formGroup small {
-  margin-top: 6px;
-
-  color: #ef4444;
-
-  font-size: 12px;
-}
-
-.errorInput {
-  border-color: #ef4444 !important;
-}
-
-.errorInput:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
-}
+/* =========================
+   Upload Field
+========================= */
 
 .uploadBox {
-  min-height: 145px;
+  min-height: 150px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  gap: 6px;
+  gap: 7px;
+  padding: 24px;
 
-  padding: 25px;
+  border: 1px dashed #cbd5df;
+  border-radius: 11px;
 
-  border: 1.5px dashed #cbd5df;
-  border-radius: 13px;
-
-  background: #fafcfc;
-
+  background: #fbfcfd;
   color: var(--color-muted);
 
   cursor: pointer;
@@ -237,22 +549,23 @@
 
 .uploadBox:hover {
   border-color: var(--color-teal);
-  background: #f3fbfa;
+  background: #f6fcfb;
 }
 
 .uploadBox svg {
+  width: 24px;
+  height: 24px;
   margin-bottom: 4px;
-
   color: var(--color-teal);
 }
 
 .uploadBox strong {
   color: #344054;
-
   font-size: 14px;
 }
 
 .uploadBox span {
+  color: #98a2b3;
   font-size: 12px;
 }
 
@@ -262,24 +575,26 @@
 
 .uploadError {
   display: block;
-
   margin-top: 7px;
-
   color: #ef4444;
-
   font-size: 12px;
 }
 
+/* =========================
+   Form Footer
+========================= */
+
 .formFooter {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
 
   gap: 12px;
+  padding: 20px 32px;
 
-  padding: 20px 30px;
+  border-top: 1px solid #edf0f3;
 
-  background: #fbfcfd;
+  background: #fafbfc;
 }
 
 .cancelButton {
@@ -291,23 +606,26 @@
 
   padding: 0 20px;
 
-  border: 1px solid #dce1e7;
-  border-radius: 10px;
+  border: 1px solid #d9dee5;
+  border-radius: 9px;
 
   background: #ffffff;
-
   color: #667085;
 
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
 
   text-decoration: none;
 
-  transition: background 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .cancelButton:hover {
   background: #f5f6f8;
+  border-color: #cbd1d9;
 }
 
 .submitButton {
@@ -318,14 +636,12 @@
   justify-content: center;
 
   gap: 8px;
-
   padding: 0 22px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 9px;
 
   background: var(--color-teal);
-
   color: #ffffff;
 
   font-family: inherit;
@@ -351,288 +667,14 @@
   opacity: 0.65;
   cursor: not-allowed;
 }
-/* =========================
-   Dynamic Form Sections
-========================= */
-
-.dynamicCard {
-  padding: 20px;
-  margin-bottom: 16px;
-  border: 1px solid #edf0f4;
-  border-radius: 14px;
-  background: #fafcfc;
-}
-
-.dynamicHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.dynamicHeader h3 {
-  margin: 0;
-  color: var(--color-navy);
-  font-size: 15px;
-  font-weight: 650;
-}
-
-/* Add button */
-
-.addButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 42px;
-  padding: 0 16px;
-  border: 1px solid var(--color-teal);
-  border-radius: 10px;
-  background: #ffffff;
-  color: var(--color-teal);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.1s ease;
-}
-
-.addButton:hover {
-  background: var(--color-teal);
-  color: #ffffff;
-}
-
-.addButton:active {
-  transform: scale(0.98);
-}
-
-/* Remove button */
-
-.removeButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 36px;
-  padding: 0 11px;
-  border: none;
-  border-radius: 8px;
-  background: #fdeceb;
-  color: #ef4444;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
-}
-
-.removeButton:hover {
-  background: #fbd5d2;
-}
-
-.removeButton:active {
-  transform: scale(0.97);
-}
-
-/* Textarea */
-
-.formGroup textarea {
-  width: 100%;
-  min-height: 100px;
-  padding: 12px 14px;
-  border: 1px solid #dce1e7;
-  border-radius: 10px;
-  outline: none;
-  background: #ffffff;
-  color: #26364d;
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 1.5;
-  resize: vertical;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.formGroup textarea::placeholder {
-  color: #a1a9b4;
-}
-
-.formGroup textarea:focus {
-  border-color: var(--color-teal);
-  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
-}
-
-/* Full width field */
-
-.fullWidth {
-  grid-column: 1 / -1;
-}
-
-/* Lab result row */
-
-.labRow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.labRow input {
-  flex: 1;
-  width: 100%;
-  height: 46px;
-  padding: 0 14px;
-  border: 1px solid #dce1e7;
-  border-radius: 10px;
-  outline: none;
-  background: #ffffff;
-  color: #26364d;
-  font-family: inherit;
-  font-size: 14px;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.labRow input::placeholder {
-  color: #a1a9b4;
-}
-
-.labRow input:focus {
-  border-color: var(--color-teal);
-  box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.1);
-}
-
-/* Add these to your existing addpatient.module.css — new classes used by the extended AddPatient form */
-
-.arrayItem {
-  border: 1px solid #e2e4ea;
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background: #fafbfc;
-}
-
-.arrayItemHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.vitalGroupLabel {
-  font-size: 13px;
-  font-weight: 600;
-  color: #5c6270;
-  margin: 12px 0 6px;
-}
-
-.addButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px dashed #b6bccc;
-  background: transparent;
-  color: #072635;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.addButton:hover {
-  background: #f1f3f8;
-}
-
-.removeButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border: none;
-  background: transparent;
-  color: #c94f4f;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-.removeButton:hover {
-  text-decoration: underline;
-}
-
-.checkboxGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.checkboxItem {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #33394a;
-}
-
-.fullWidth {
-  grid-column: 1 / -1;
-}
 
 /* =========================
    Responsive
 ========================= */
 
 @media (max-width: 768px) {
-  .dynamicCard {
-    padding: 16px;
-  }
-
-  .dynamicHeader {
-    align-items: flex-start;
-  }
-
-  .labRow {
-    align-items: stretch;
-  }
-
-  .labRow input {
-    min-width: 0;
-  }
-}
-
-@media (max-width: 500px) {
-  .dynamicHeader {
-    flex-direction: column;
-  }
-
-  .removeButton {
-    width: 100%;
-  }
-
-  .addButton {
-    width: 100%;
-  }
-
-  .labRow {
-    flex-direction: column;
-  }
-
-  .labRow .removeButton {
-    width: 100%;
-  }
-}
-@media (max-width: 768px) {
   .page {
-    padding: 0px;
-    margin-bottom: 4rem;
+    padding: 16px;
   }
 
   .formGrid {
@@ -640,7 +682,11 @@
   }
 
   .section {
-    padding: 22px 20px;
+    padding: 24px 20px;
+  }
+
+  .checkboxGrid {
+    grid-template-columns: 1fr;
   }
 
   .formFooter {
@@ -649,8 +695,41 @@
 }
 
 @media (max-width: 500px) {
+  .page {
+    padding: 12px;
+  }
+
   .pageHeader h1 {
     font-size: 23px;
+  }
+
+  .formCard {
+    border-radius: 10px;
+  }
+
+  .section {
+    padding: 20px 16px;
+  }
+
+  .arrayItem {
+    padding: 16px;
+  }
+
+  .arrayItemHeader {
+    align-items: flex-start;
+  }
+
+  .labRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .labRow .removeButton {
+    width: 100%;
+  }
+
+  .addButton {
+    width: 100%;
   }
 
   .formFooter {

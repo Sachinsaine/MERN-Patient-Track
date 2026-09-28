@@ -247,7 +247,7 @@ export const AddPatient = () => {
   };
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return ;
   }
 
   if (error) {

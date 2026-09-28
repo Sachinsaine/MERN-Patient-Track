@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import styles from "./diagnosticList.module.css";
 import { motion } from "motion/react";
+import { Loader } from "../Loader/Loader";
 
 export const DiagnosticList = () => {
   const { patient, loading } = useContext(PatientContext);
 
   if (loading || !patient) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   const diagnosticList = patient.diagnostic_list || [];

@@ -16,6 +16,7 @@ import {
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { motion } from "motion/react";
+import { useAppointments } from "../../hooks/useAppointments";
 
 export const Overview = () => {
   const { patients } = useContext(PatientContext);
@@ -29,6 +30,8 @@ export const Overview = () => {
     month: "long",
   });
 
+  const { appointments } = useAppointments();
+
   const stats = [
     {
       title: "Total Patients",
@@ -39,7 +42,7 @@ export const Overview = () => {
     },
     {
       title: "Appointments",
-      value: "16",
+      value: appointments.length,
       change: "4 remaining",
       icon: FiCalendar,
       iconClass: styles.greenIcon,
@@ -142,7 +145,7 @@ export const Overview = () => {
                       <div className={styles.patientAvatar}>
                         {patient.profile_picture ? (
                           <img
-                            src={patient.profile_picture}
+                            src={`${import.meta.env.VITE_API_URL}/uploads/${patient.profile_picture}`}
                             alt={patient.name}
                           />
                         ) : (

@@ -27,7 +27,7 @@
   background: #f1f4f8;
   border-radius: 20px;
   padding: 10px 14px;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
   color: #536174;
   box-sizing: border-box;
@@ -66,12 +66,15 @@
 
 .name {
   font-weight: 500;
+  font-size: 13px;
 }
 
 .description {
   color: #536174;
+  font-size: 13px;
 }
 
 .status {
   color: #536174;
+  font-size: 13px;
 }

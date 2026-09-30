@@ -86,7 +86,7 @@ export const Patients = () => {
                   className={`${styles.row} ${isActive ? styles.rowActive : ""}`}
                 >
                   <img
-                    src={patient.profile_picture}
+                    src={`${import.meta.env.VITE_API_URL}/uploads/${patient.profile_picture}`}
                     alt={patient.name}
                     className={styles.avatar}
                   />
@@ -103,7 +103,7 @@ export const Patients = () => {
                     className={styles.moreBtn}
                     aria-label="More options"
                     onClick={(e) => {
-                      e.stopPropagation;
+                      e.stopPropagation();
                       handleOpen(patient._id);
                     }}
                   >

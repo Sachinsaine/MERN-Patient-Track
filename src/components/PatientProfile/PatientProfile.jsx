@@ -38,7 +38,7 @@ export const PatientProfile = () => {
     >
       <div className={styles.card}>
         <img
-          src={patient.profile_picture}
+          src={`${import.meta.env.VITE_API_URL}/uploads/${patient.profile_picture}`}
           alt={patient.name}
           className={styles.avatar}
         />

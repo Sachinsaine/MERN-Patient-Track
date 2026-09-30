@@ -11,8 +11,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
+const path = require("path");
+const fs = require("fs");
 
 const app = express();
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // For Deployment
 const FRONTEND_URL = "https://mern-patient-track-axkc.vercel.app";
@@ -39,7 +43,24 @@ const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
 
-const storage = multer.memoryStorage();
+//image uploading
+const uploadDir = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+
+    cb(null, uniqueName);
+  },
+});
 
 const upload = multer({
   storage,
@@ -63,7 +84,8 @@ app.get("/", (req, res) => {
 
 app.get("/api/patient", verifyToken, async (req, res) => {
   try {
-    const patients = await Patient.find();
+    // const patients = await Patient.find();
+    const patients = await Patient.find().sort({ createdAt: -1 });
 
     res.status(200).json(patients);
   } catch (error) {
@@ -130,7 +152,7 @@ app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
 
       lab_results: parseJSON(req.body.lab_results, []),
 
-      profile_picture: req.file ? req.file.originalname : "",
+      profile_picture: req.file ? req.file.filename : "",
     });
 
     const savedPatient = await patient.save();

@@ -52,26 +52,74 @@ export const Registration = () => {
     },
   });
 
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_URL}/api/auth/register`,
+  //       {
+  //         method: "POST",
+
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+
+  //         body: JSON.stringify({
+  //           name: data.name,
+  //           email: data.email,
+  //           password: data.password,
+  //         }),
+  //       },
+  //     );
+
+  //     const result = await response.json();
+
+  //     if (!response.ok) {
+  //       alert(result.message || "Registration failed");
+  //       return;
+  //     }
+
+  //     toast.success("Registration successful! Please login.");
+
+  //     reset();
+
+  //     navigate("/login", {
+  //       replace: true,
+  //     });
+  //   } catch (error) {
+  //     console.error("REGISTER ERROR:", error);
+  //     toast.error("Something went wrong. Please try again.");
+  //   }
+  // };
+
   const onSubmit = async (data) => {
+    console.log("✅ onSubmit called");
+    console.log("Form data:", data);
+    console.log("API URL:", import.meta.env.VITE_API_URL);
+
+    const registerUrl = `${import.meta.env.VITE_API_URL}/api/auth/register`;
+
+    console.log("Register URL:", registerUrl);
+
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/register`,
-        {
-          method: "POST",
+      const response = await fetch(registerUrl, {
+        method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          }),
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      console.log("Response status:", response.status);
 
       const result = await response.json();
+
+      console.log("Response:", result);
 
       if (!response.ok) {
         alert(result.message || "Registration failed");

@@ -168,37 +168,55 @@ app.post("/api/patient", upload.single("profile_picture"), async (req, res) => {
   }
 });
 
-app.put("/api/patient/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
+app.put(
+  "/api/patient/:id",
+  upload.single("profile_picture"),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        message: "Invalid patient ID",
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          message: "Invalid patient ID",
+        });
+      }
+
+      const updateData = {
+        name: req.body.name,
+        age: req.body.age,
+        gender: req.body.gender,
+        date_of_birth: req.body.date_of_birth,
+        phone_number: req.body.phone_number,
+        emergency_contact: req.body.emergency_contact,
+        insurance_type: req.body.insurance_type,
+      };
+
+      if (req.file) {
+        updateData.profile_picture = req.file.filename;
+      }
+
+      const updatedPatient = await Patient.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (!updatedPatient) {
+        return res.status(404).json({
+          message: "Patient not found",
+        });
+      }
+
+      res.status(200).json(updatedPatient);
+    } catch (error) {
+      console.error("UPDATE PATIENT ERROR:", error);
+
+      res.status(500).json({
+        message: "Failed to update patient",
+        error: error.message,
       });
     }
-
-    const updatedPatient = await Patient.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!updatedPatient) {
-      return res.status(404).json({
-        message: "Patient not found",
-      });
-    }
-
-    res.status(200).json(updatedPatient);
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      message: "Failed to update patient",
-      error: error.message,
-    });
-  }
-});
+  },
+);
 
 app.delete("/api/patient/:id", async (req, res) => {
   try {

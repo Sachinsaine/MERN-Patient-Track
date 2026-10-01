@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { PatientContext } from "../../context/PatientContext";
 
 export const EditProfile = ({ open, close, patient }) => {
-  const { setSelectedPatient } = useContext(PatientContext);
+  const { setSelectedPatient, setPatients } = useContext(PatientContext);
   const {
     register,
     handleSubmit,
@@ -68,7 +68,13 @@ export const EditProfile = ({ open, close, patient }) => {
       }
 
       const updatedPatientData = await response.json();
-      setSelectedPatient(updatedPatientData);
+
+      setPatients((prevPatients) =>
+        prevPatients.map((p) =>
+          p._id === updatedPatientData._id ? updatedPatientData : p,
+        ),
+      );
+      setSelectedPatient(updatedPatientData._id);
       console.log("Updated patient:", updatedPatientData);
 
       close();

@@ -114,46 +114,52 @@ export const Schedule = () => {
           </div>
 
           <div className={styles.timeline}>
-            {appointments.map((appointment) => (
-              <article className={styles.appointment} key={appointment.id}>
-                <div className={styles.timeColumn}>
-                  <strong>{appointment.time}</strong>
-                  <span>{appointment.duration} min</span>
-                </div>
+            {appointments.length === 0 ? (
+              <p className={styles.emptyAppointments}>
+                No appointments available.
+              </p>
+            ) : (
+              appointments.map((appointment) => (
+                <article className={styles.appointment} key={appointment.id}>
+                  <div className={styles.timeColumn}>
+                    <strong>{appointment.time}</strong>
+                    <span>{appointment.duration} min</span>
+                  </div>
 
-                <div className={styles.timelineLine}>
-                  <span />
-                </div>
+                  <div className={styles.timelineLine}>
+                    <span />
+                  </div>
 
-                <div className={styles.appointmentContent}>
-                  <div className={styles.appointmentTop}>
-                    <div>
-                      <h3>{appointment.patient}</h3>
-                      <p>{appointment.type}</p>
+                  <div className={styles.appointmentContent}>
+                    <div className={styles.appointmentTop}>
+                      <div>
+                        <h3>{appointment.patient}</h3>
+                        <p>{appointment.type}</p>
+                      </div>
+
+                      <span
+                        className={`${styles.statusBadge} ${
+                          styles[appointment.statusClass]
+                        }`}
+                      >
+                        {appointment.status}
+                      </span>
                     </div>
 
-                    <span
-                      className={`${styles.statusBadge} ${
-                        styles[appointment.statusClass]
-                      }`}
-                    >
-                      {appointment.status}
-                    </span>
-                  </div>
+                    <div className={styles.appointmentBottom}>
+                      <span className={styles.doctorInfo}>
+                        <FiUser size={15} />
+                        {appointment.doctor}
+                      </span>
 
-                  <div className={styles.appointmentBottom}>
-                    <span className={styles.doctorInfo}>
-                      <FiUser size={15} />
-                      {appointment.doctor}
-                    </span>
-
-                    <button className={styles.viewButton} type="button">
-                      View Details
-                    </button>
+                      <button className={styles.viewButton} type="button">
+                        View Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))
+            )}
           </div>
         </section>
       </main>

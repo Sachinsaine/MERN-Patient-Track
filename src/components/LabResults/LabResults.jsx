@@ -5,20 +5,24 @@ import styles from "./labresults.module.css";
 
 export const LabResults = () => {
   const { patient } = useContext(PatientContext);
-  const results = patient.lab_results;
+  const results = patient.lab_results || [];
   return (
     <section className={styles.resultsCard}>
       {" "}
       <h2 className={styles.title}>Lab Results</h2>{" "}
       <div className={styles.resultsList}>
         {" "}
-        {results.map((result, index) => (
-          <div key={index} className={styles.download}>
-            {" "}
-            <span>{result}</span>{" "}
-            <BsDownload className={styles.downloadIcon} />{" "}
-          </div>
-        ))}{" "}
+        {results.length === 0 ? (
+          <p className={styles.emptyResults}>No lab results available.</p>
+        ) : (
+          results.map((result, index) => (
+            <div key={index} className={styles.download}>
+              {" "}
+              <span>{result}</span>{" "}
+              <BsDownload className={styles.downloadIcon} />{" "}
+            </div>
+          ))
+        )}{" "}
       </div>{" "}
     </section>
   );

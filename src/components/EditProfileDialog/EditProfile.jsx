@@ -24,7 +24,6 @@ export const EditProfile = ({ open, close, patient }) => {
     },
   });
 
-  // Fill form with existing patient data
   useEffect(() => {
     if (patient) {
       reset({
@@ -214,10 +213,9 @@ export const EditProfile = ({ open, close, patient }) => {
           {/* Profile Picture */}
           <div className={styles.profileGroup}>
             <label>Profile Picture</label>
-
             <img
               className={styles.profileImage}
-              src={patient?.profile_picture}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${patient.profile_picture}`}
               alt={patient?.name}
             />
 
@@ -226,7 +224,6 @@ export const EditProfile = ({ open, close, patient }) => {
               accept="image/*"
               {...register("profile_picture")}
             />
-
             {errors.profile_picture && (
               <small>{errors.profile_picture.message}</small>
             )}

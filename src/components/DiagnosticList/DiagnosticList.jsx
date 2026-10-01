@@ -30,15 +30,21 @@ export const DiagnosticList = () => {
           </div>
 
           <div className={styles.tableBody}>
-            {diagnosticList.map((data, index) => (
-              <div className={styles.tableRow} key={`${data.name}-${index}`}>
-                <div className={styles.name}>{data.name}</div>
+            {diagnosticList.length === 0 ? (
+              <p className={styles.emptyDiagnostic}>
+                No diagnostic records available.
+              </p>
+            ) : (
+              diagnosticList.map((data, index) => (
+                <div className={styles.tableRow} key={`${data.name}-${index}`}>
+                  <div className={styles.name}>{data.name}</div>
 
-                <div className={styles.description}>{data.description}</div>
+                  <div className={styles.description}>{data.description}</div>
 
-                <div className={styles.status}>{data.status}</div>
-              </div>
-            ))}
+                  <div className={styles.status}>{data.status}</div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>

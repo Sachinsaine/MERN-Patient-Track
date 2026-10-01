@@ -317,6 +317,14 @@
   text-decoration: underline;
 }
 
+.emptyAppointments {
+  text-align: center;
+  padding: 30px 20px;
+  color: #8a93a6;
+  font-size: 15px;
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   .summaryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

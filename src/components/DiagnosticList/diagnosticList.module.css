@@ -1,80 +1,104 @@
 .diagnosticCard {
-  width: 100%;
   background: #ffffff;
-  border-radius: 16px;
-  padding: 18px;
-  box-sizing: border-box;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(23, 32, 61, 0.06);
+  padding: 24px;
+  width: 100%;
   margin-top: 1.25rem;
-  box-shadow: 0 4px 18px rgba(30, 50, 70, 0.06);
 }
 
 .title {
-  margin: 0 0 18px;
   font-size: 20px;
   font-weight: 700;
-  color: #26364b;
+  color: #1b2a4e;
+  margin-bottom: 20px;
 }
 
 .tableContainer {
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.2fr;
+  align-items: center;
+  min-width: 600px;
 }
 
 .tableHeader {
-  display: grid;
-  grid-template-columns: 1.2fr 1.8fr 0.7fr;
-  align-items: center;
-  background: #f1f4f8;
-  border-radius: 20px;
-  padding: 10px 14px;
-  font-size: 14px;
+  background: #f5f6fa;
+  color: #8a93a6;
+  font-size: 13px;
   font-weight: 600;
-  color: #536174;
-  box-sizing: border-box;
+  padding: 14px 18px;
+  border-radius: 50px;
 }
 
 .tableBody {
-  max-height: 125px;
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.tableBody::-webkit-scrollbar {
-  width: 4px;
-}
-
-.tableBody::-webkit-scrollbar-track {
-  background: #edf0f4;
-  border-radius: 10px;
-}
-
-.tableBody::-webkit-scrollbar-thumb {
-  background: #26364b;
-  border-radius: 10px;
+  width: 100%;
 }
 
 .tableRow {
-  display: grid;
-  grid-template-columns: 1.2fr 1.8fr 0.7fr;
-  align-items: center;
-  min-height: 34px;
-  padding: 8px 14px;
-  font-size: 11px;
-  color: #3d4a5c;
-  box-sizing: border-box;
+  padding: 18px;
+  border-bottom: 1px solid #eef0f4;
+  font-size: 14px;
+  color: #1f2937;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #fafbfc;
 }
 
 .name {
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  color: #1b2a4e;
 }
 
 .description {
-  color: #536174;
-  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+  padding-right: 20px;
 }
 
 .status {
-  color: #536174;
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #eaf2ff;
+  color: #3b82f6;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Empty diagnostic message */
+.emptyDiagnostic {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8a93a6;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .diagnosticCard {
+    padding: 18px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1fr 1.5fr 1fr;
+    min-width: 550px;
+  }
 }

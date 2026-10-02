@@ -81,7 +81,8 @@ export const Overview = () => {
             </h1>
 
             <p className={styles.subtitle}>
-              Here's what's happening across your practice today.
+              You have <b>7 appointments</b> scheduled today, and no urgent
+              reports to review.
             </p>
           </div>
 
@@ -90,13 +91,13 @@ export const Overview = () => {
             <span>Add Patient</span>
           </Link>
         </section>
-
+        {/* 
         <div className={styles.sectionHeader}>
           <div>
             <h2>Practice Overview</h2>
             <p>Your practice performance today</p>
           </div>
-        </div>
+        </div> */}
 
         <section className={styles.statsGrid}>
           {stats.map((item) => {

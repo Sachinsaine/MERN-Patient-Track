@@ -85,21 +85,6 @@ export const AppointmentForm = () => {
 
   return (
     <main className={styles.page}>
-      {/* Page Header */}
-
-      {/* <div className={styles.pageHeader}>
-        <div>
-          <Link to="/" className={styles.backButton}>
-            <FiArrowLeft size={18} />
-            Back to Overview
-          </Link>
-
-          <h1>Add New Appointment</h1>
-
-          <p>Enter the appointment information to create a new appointment.</p>
-        </div>
-      </div> */}
-
       <form className={styles.formCard} onSubmit={handleSubmit(onSubmit)}>
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
@@ -115,8 +100,6 @@ export const AppointmentForm = () => {
           </div>
 
           <div className={styles.formGrid}>
-            {/* Patient */}
-
             <div className={styles.formGroup}>
               <label>
                 Patient Name
@@ -136,8 +119,6 @@ export const AppointmentForm = () => {
 
               {errors.patient && <small>{errors.patient.message}</small>}
             </div>
-
-            {/* Doctor */}
 
             <div className={styles.formGroup}>
               <label>
@@ -159,8 +140,6 @@ export const AppointmentForm = () => {
               {errors.doctor && <small>{errors.doctor.message}</small>}
             </div>
 
-            {/* Date */}
-
             <div className={styles.formGroup}>
               <label>
                 Appointment Date
@@ -180,8 +159,6 @@ export const AppointmentForm = () => {
               {errors.date && <small>{errors.date.message}</small>}
             </div>
 
-            {/* Time */}
-
             <div className={styles.formGroup}>
               <label>
                 Appointment Time
@@ -200,8 +177,6 @@ export const AppointmentForm = () => {
 
               {errors.time && <small>{errors.time.message}</small>}
             </div>
-
-            {/* Appointment Type */}
 
             <div className={styles.formGroup}>
               <label>
@@ -229,8 +204,6 @@ export const AppointmentForm = () => {
               {errors.type && <small>{errors.type.message}</small>}
             </div>
 
-            {/* Duration */}
-
             <div className={styles.formGroup}>
               <label>
                 Duration
@@ -251,8 +224,6 @@ export const AppointmentForm = () => {
 
               {errors.duration && <small>{errors.duration.message}</small>}
             </div>
-
-            {/* Status */}
 
             <div className={styles.formGroup}>
               <label>

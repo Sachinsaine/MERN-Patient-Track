@@ -20,6 +20,7 @@ import styles from "./addpatient.module.css";
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { toast } from "react-toastify";
+import { Loader } from "../Loader/Loader";
 
 const MONTHS = [
   "January",
@@ -247,7 +248,7 @@ export const AddPatient = () => {
   };
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   if (error) {

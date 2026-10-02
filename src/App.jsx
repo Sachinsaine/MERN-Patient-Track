@@ -17,12 +17,13 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { AuthContextProvider } from "./context/AuthContextProvider";
 import { useAuth } from "./hooks/useAuth";
 import { Registration } from "./components/Registeration/Registeration";
+import { Loader } from "./components/Loader/Loader";
 
 function AppContent() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   return (

@@ -11,16 +11,29 @@ import { Link } from "react-router-dom";
 import { useAppointments } from "../../hooks/useAppointments";
 import { useContext } from "react";
 import { PatientContext } from "../../context/PatientContext";
+import { Loader } from "../Loader/Loader";
 
 export const Schedule = () => {
   const { appointments } = useAppointments();
   const { loading } = useContext(PatientContext);
 
   if (loading) {
-    return <h1 className={styles.headingCont}>Loading...</h1>;
+    return <Loader />;
   }
 
   const totalAppointments = appointments.length;
+
+  const completedAppointments = appointments.filter(
+    (appointment) => appointment.status === "Completed",
+  ).length;
+
+  const confirmedAppointments = appointments.filter(
+    (appointment) => appointment.status === "Confirmed",
+  ).length;
+
+  const scheduledAppointments = appointments.filter(
+    (appointment) => appointment.status === "Scheduled",
+  ).length;
 
   return (
     <motion.div
@@ -68,7 +81,7 @@ export const Schedule = () => {
 
               <div>
                 <p>Confirmed</p>
-                <strong>1</strong>
+                <strong>{confirmedAppointments}</strong>
               </div>
             </article>
 
@@ -78,8 +91,8 @@ export const Schedule = () => {
               </span>
 
               <div>
-                <p>Pending</p>
-                <strong>1</strong>
+                <p>Scheduled</p>
+                <strong>{scheduledAppointments}</strong>
               </div>
             </article>
 
@@ -90,7 +103,7 @@ export const Schedule = () => {
 
               <div>
                 <p>Completed</p>
-                <strong>1</strong>
+                <strong>{completedAppointments}</strong>
               </div>
             </article>
           </section>
@@ -100,11 +113,13 @@ export const Schedule = () => {
           <div className={styles.scheduleHeader}>
             <div>
               <h2>Daily Schedule</h2>
+
               <p>Friday, September 11, 2026</p>
             </div>
 
             <div className={styles.dateWrapper}>
               <FiCalendar size={17} />
+
               <input
                 className={styles.dateInput}
                 type="date"
@@ -123,6 +138,7 @@ export const Schedule = () => {
                 <article className={styles.appointment} key={appointment.id}>
                   <div className={styles.timeColumn}>
                     <strong>{appointment.time}</strong>
+
                     <span>{appointment.duration} min</span>
                   </div>
 
@@ -134,6 +150,7 @@ export const Schedule = () => {
                     <div className={styles.appointmentTop}>
                       <div>
                         <h3>{appointment.patient}</h3>
+
                         <p>{appointment.type}</p>
                       </div>
 
@@ -149,6 +166,7 @@ export const Schedule = () => {
                     <div className={styles.appointmentBottom}>
                       <span className={styles.doctorInfo}>
                         <FiUser size={15} />
+
                         {appointment.doctor}
                       </span>
 

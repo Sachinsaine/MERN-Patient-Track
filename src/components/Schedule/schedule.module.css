@@ -266,26 +266,8 @@
   font-size: 0.72rem;
   font-weight: 600;
   white-space: nowrap;
-}
-
-.statusConfirmed {
-  background: var(--color-status-cured-bg);
-  color: var(--color-status-cured-text);
-}
-
-.statusPending {
-  background: var(--color-status-treated-bg);
-  color: var(--color-status-treated-text);
-}
-
-.statusCompleted {
-  background: var(--color-status-observation-bg);
-  color: var(--color-status-observation-text);
-}
-
-.statusCancelled {
-  background: var(--color-status-untreated-bg);
-  color: var(--color-status-untreated-text);
+  background: var(--color-teal);
+  color: #fff;
 }
 
 .appointmentBottom {

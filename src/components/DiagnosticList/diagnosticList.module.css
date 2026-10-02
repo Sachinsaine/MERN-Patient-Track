@@ -41,15 +41,11 @@
 }
 
 .tableRow {
-  padding: 18px;
+  padding: 18px 18px 10px;
   border-bottom: 1px solid #eef0f4;
   font-size: 14px;
   color: #1f2937;
   transition: background-color 0.2s ease;
-}
-
-.tableRow:hover {
-  background-color: #fafbfc;
 }
 
 .name {
@@ -70,14 +66,12 @@
   width: fit-content;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #eaf2ff;
-  color: #3b82f6;
+  color: var(--color-teal);
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
 
-/* Empty diagnostic message */
 .emptyDiagnostic {
   text-align: center;
   padding: 40px 20px;
@@ -86,7 +80,6 @@
   font-weight: 500;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .diagnosticCard {
     padding: 18px;

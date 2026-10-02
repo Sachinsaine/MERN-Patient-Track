@@ -19,14 +19,16 @@ const app = express();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // For Deployment
+
 const FRONTEND_URL = "https://mern-patient-track-axkc.vercel.app";
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: ["http://localhost:5173", FRONTEND_URL],
     credentials: true,
   }),
 );
+
 
 // For Local Development
 // app.use(

@@ -5,10 +5,6 @@
   background: var(--color-background);
 }
 
-/* =========================
-   Page Header
-========================= */
-
 .pageHeader {
   max-width: 1100px;
   margin: 0 auto 24px;
@@ -44,10 +40,6 @@
   font-size: 14px;
 }
 
-/* =========================
-   Main Form Card
-========================= */
-
 .formCard {
   width: 100%;
   max-width: 1100px;
@@ -58,10 +50,6 @@
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
-
-/* =========================
-   Sections
-========================= */
 
 .section {
   padding: 28px 32px;
@@ -107,19 +95,11 @@
   font-size: 13px;
 }
 
-/* =========================
-   Form Grid
-========================= */
-
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px 24px;
 }
-
-/* =========================
-   Form Group
-========================= */
 
 .formGroup {
   display: flex;
@@ -139,10 +119,6 @@
   margin-left: 3px;
   color: #ef4444;
 }
-
-/* =========================
-   ALL INPUTS
-========================= */
 
 .formGroup input,
 .formGroup select,
@@ -167,22 +143,16 @@
     background-color 0.2s ease;
 }
 
-/* Text / number / date / select */
-
 .formGroup input,
 .formGroup select {
   height: 46px;
   padding: 0 13px;
 }
 
-/* Placeholder */
-
 .formGroup input::placeholder,
 .formGroup textarea::placeholder {
   color: #a1a9b4;
 }
-
-/* Focus */
 
 .formGroup input:focus,
 .formGroup select:focus,
@@ -192,14 +162,10 @@
   box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.09);
 }
 
-/* Select */
-
 .formGroup select {
   cursor: pointer;
   appearance: auto;
 }
-
-/* Error */
 
 .errorInput {
   border-color: #ef4444 !important;
@@ -209,18 +175,12 @@
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
 }
 
-/* Error message */
-
 .formGroup small {
   margin-top: 6px;
   color: #ef4444;
   font-size: 12px;
   line-height: 1.4;
 }
-
-/* =========================
-   Input With Icon
-========================= */
 
 .inputWithIcon {
   position: relative;
@@ -245,10 +205,6 @@
   padding-left: 42px;
 }
 
-/* =========================
-   Textarea
-========================= */
-
 .formGroup textarea {
   min-height: 100px;
   padding: 12px 13px;
@@ -256,17 +212,9 @@
   resize: vertical;
 }
 
-/* =========================
-   Full Width Field
-========================= */
-
 .fullWidth {
   grid-column: 1 / -1;
 }
-
-/* =========================
-   Dynamic Form Items
-========================= */
 
 .arrayItem {
   margin-bottom: 18px;
@@ -304,10 +252,6 @@
   font-weight: 650;
 }
 
-/* =========================
-   Vital Labels
-========================= */
-
 .vitalGroupLabel {
   margin: 18px 0 10px;
 
@@ -315,10 +259,6 @@
   font-size: 12px;
   font-weight: 600;
 }
-
-/* =========================
-   Add Button
-========================= */
 
 .addButton {
   display: inline-flex;
@@ -356,10 +296,6 @@
   transform: scale(0.98);
 }
 
-/* =========================
-   Remove Button
-========================= */
-
 .removeButton {
   display: inline-flex;
   align-items: center;
@@ -390,10 +326,6 @@
   background: #fdeceb;
   border-color: #efc1bd;
 }
-
-/* =========================
-   Checkbox / Lab Results
-========================= */
 
 .checkboxGrid {
   display: grid;
@@ -440,10 +372,6 @@
   cursor: pointer;
 }
 
-/* =========================
-   Custom Lab Input
-========================= */
-
 .customLabRow {
   display: flex;
   align-items: center;
@@ -484,8 +412,6 @@
   box-shadow: 0 0 0 3px rgba(15, 191, 176, 0.09);
 }
 
-/* Delete button */
-
 .customLabRow .removeButton {
   flex-shrink: 0;
 
@@ -499,10 +425,6 @@
   align-items: center;
   justify-content: center;
 }
-
-/* =========================
-   Mobile
-========================= */
 
 @media (max-width: 500px) {
   .customLabRow {
@@ -518,10 +440,6 @@
     min-width: 42px;
   }
 }
-
-/* =========================
-   Upload Field
-========================= */
 
 .uploadBox {
   min-height: 150px;
@@ -579,10 +497,6 @@
   color: #ef4444;
   font-size: 12px;
 }
-
-/* =========================
-   Form Footer
-========================= */
 
 .formFooter {
   display: flex;
@@ -668,13 +582,10 @@
   cursor: not-allowed;
 }
 
-/* =========================
-   Responsive
-========================= */
-
 @media (max-width: 768px) {
   .page {
-    padding: 16px;
+    padding: 0px;
+    margin-bottom: 4rem;
   }
 
   .formGrid {
@@ -696,7 +607,8 @@
 
 @media (max-width: 500px) {
   .page {
-    padding: 12px;
+    padding: 0px;
+    margin-bottom: 4rem;
   }
 
   .pageHeader h1 {

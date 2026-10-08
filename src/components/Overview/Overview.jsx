@@ -39,6 +39,7 @@ export const Overview = () => {
       change: "+38 this month",
       icon: FiUsers,
       iconClass: styles.blueIcon,
+      link: "/dashboard",
     },
     {
       title: "Appointments",
@@ -46,6 +47,7 @@ export const Overview = () => {
       change: "4 remaining",
       icon: FiCalendar,
       iconClass: styles.greenIcon,
+      link: "/schedule",
     },
     {
       title: "Pending Reports",
@@ -110,7 +112,9 @@ export const Overview = () => {
                     <Icon size={21} />
                   </div>
 
-                  <FiArrowUpRight className={styles.arrowIcon} size={18} />
+                  <Link to={item.link}>
+                    <FiArrowUpRight className={styles.arrowIcon} size={18} />
+                  </Link>
                 </div>
 
                 <p className={styles.cardTitle}>{item.title}</p>

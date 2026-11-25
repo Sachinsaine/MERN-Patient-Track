@@ -9,13 +9,17 @@ import styles from "./schedule.module.css";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { useAppointments } from "../../hooks/useAppointments";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { PatientContext } from "../../context/PatientContext";
 import { Loader } from "../Loader/Loader";
 
 export const Schedule = () => {
   const { appointments } = useAppointments();
   const { loading, currentPage, setCurrentPage } = useContext(PatientContext);
+  const [filterByDate, setFilterByDate] = useState("");
+  const [filterByDropdown, setFilterByDropdown] = useState("All");
+  const [input, setInput] = useState("");
+  const [filterByType, setFilterByType] = useState("All");
 
   if (loading) {
     return <Loader />;
@@ -35,15 +39,31 @@ export const Schedule = () => {
     (appointment) => appointment.status === "Scheduled",
   ).length;
 
-  const appointmentsPerPage = 8;
+  const filteredAppointments = appointments.filter((app) => {
+    const filteredByDate = !filterByDate || app.date === filterByDate;
+    const filteredByDropdown =
+      filterByDropdown === "All" || app.status === filterByDropdown;
+
+    const filterByName = app.patient
+      .toLowerCase()
+      .includes(input.toLowerCase());
+
+    const filteredByType = filterByType === "All" || app.type === filterByType;
+
+    return (
+      filteredByDate && filterByName && filteredByDropdown && filteredByType
+    );
+  });
+
+  const appointmentsPerPage = 5;
 
   const lastIndex = currentPage * appointmentsPerPage;
   const firstIndex = lastIndex - appointmentsPerPage;
 
-  const appointmentPerPage = appointments.slice(firstIndex, lastIndex);
-
-  const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
-
+  const totalPages = Math.ceil(
+    filteredAppointments.length / appointmentsPerPage,
+  );
+  const appointmentPerPage = filteredAppointments.slice(firstIndex, lastIndex);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -120,20 +140,95 @@ export const Schedule = () => {
 
         <section className={styles.scheduleCard}>
           <div className={styles.scheduleHeader}>
-            <div>
+            <div className={styles.scheduleTitle}>
               <h2>Daily Schedule</h2>
-
-              <p>Friday, September 11, 2026</p>
+              <p>
+                {filterByDate
+                  ? new Date(`${filterByDate}T00:00:00`).toLocaleDateString(
+                      "en-US",
+                      {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      },
+                    )
+                  : "All appointment dates"}
+              </p>
             </div>
 
-            <div className={styles.dateWrapper}>
-              <FiCalendar size={17} />
+            <div className={styles.filtersContainer}>
+              <div className={styles.filterGroup}>
+                <label>Date</label>
+                <div className={styles.dateWrapper}>
+                  <FiCalendar size={16} />
+                  <input
+                    className={styles.dateInput}
+                    type="date"
+                    value={filterByDate}
+                    onChange={(e) => {
+                      setFilterByDate(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
+              </div>
 
-              <input
-                className={styles.dateInput}
-                type="date"
-                defaultValue="2026-09-11"
-              />
+              <div className={styles.filterGroup}>
+                <label>Search Patient</label>
+                <input
+                  className={styles.searchInput}
+                  type="text"
+                  placeholder="Search patient..."
+                  value={input}
+                  onChange={(e) => {
+                    setInput(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                />
+              </div>
+
+              <div className={styles.filterGroup}>
+                <label>Appointment Status</label>
+                <select
+                  className={styles.filterSelect}
+                  value={filterByDropdown}
+                  onChange={(e) => {
+                    setFilterByDropdown(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <option value="All">All Status</option>
+                  {[...new Set(appointments.map((app) => app.status))].map(
+                    (status) => (
+                      <option value={status} key={status}>
+                        {status}
+                      </option>
+                    ),
+                  )}
+                </select>
+              </div>
+
+              <div className={styles.filterGroup}>
+                <label>Appointment Type</label>
+                <select
+                  className={styles.filterSelect}
+                  value={filterByType}
+                  onChange={(e) => {
+                    setFilterByType(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <option value="All">All Types</option>
+                  {[...new Set(appointments.map((app) => app.type))].map(
+                    (type) => (
+                      <option value={type} key={type}>
+                        {type}
+                      </option>
+                    ),
+                  )}
+                </select>
+              </div>
             </div>
           </div>
 

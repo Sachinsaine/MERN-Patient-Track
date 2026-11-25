@@ -126,43 +126,93 @@
 
 .scheduleHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid #edf0f5;
+  gap: 24px;
+  margin-bottom: 25px;
 }
 
-.scheduleHeader h2 {
-  color: var(--color-navy);
-  font-size: 1.2rem;
-  font-weight: 700;
+.scheduleTitle {
+  flex-shrink: 0;
 }
 
-.scheduleHeader p {
-  margin-top: 0.3rem;
-  color: var(--color-muted);
-  font-size: 0.85rem;
+.scheduleTitle h2 {
+  margin: 0 0 6px;
+  font-weight: bold;
+}
+
+.scheduleTitle p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.filtersContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.filterGroup label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.searchInput,
+.filterSelect {
+  height: 40px;
+  width: 155px;
+  padding: 0 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  outline: none;
+}
+
+.searchInput {
+  width: 170px;
+}
+
+.filterSelect {
+  cursor: pointer;
 }
 
 .dateWrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  min-height: 42px;
-  padding: 0 0.75rem;
-  border: 1px solid #e1e5ed;
-  border-radius: 10px;
-  color: var(--color-muted);
+  gap: 7px;
+  height: 40px;
+  padding: 0 9px;
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  color: #64748b;
 }
 
 .dateInput {
-  min-height: 40px;
+  width: 125px;
   border: none;
-  color: var(--color-ink);
-  background: transparent;
-  font-size: 0.85rem;
   outline: none;
+  background: transparent;
+  color: #334155;
+  font-size: 12px;
+}
+
+.searchInput:focus,
+.filterSelect:focus,
+.dateWrapper:focus-within {
+  border-color: var(--color-teal-dark);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .timeline {
@@ -284,15 +334,18 @@
   gap: 0.4rem;
   color: var(--color-muted);
   font-size: 0.78rem;
+  color: var(--color-teal-dark);
+  font-weight: bold;
 }
 
 .viewButton {
   border: none;
-  background: transparent;
-  color: var(--color-teal-dark);
+  background: #d7f7ee;
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
 }
 
 .viewButton:hover {
@@ -351,6 +404,18 @@
   border-color: #edf0f5;
   color: #a0a7b4;
   cursor: not-allowed;
+}
+@media (max-width: 1100px) {
+  .scheduleHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filtersContainer {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 900px) {
@@ -425,5 +490,20 @@
 
   .pageButton {
     flex: 1;
+  }
+  .filterGroup {
+    flex: 1 1 100%;
+  }
+
+  .searchInput,
+  .filterSelect,
+  .dateWrapper {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dateInput {
+    flex: 1;
+    width: auto;
   }
 }

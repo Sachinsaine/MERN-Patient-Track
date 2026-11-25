@@ -307,6 +307,52 @@
   font-weight: 500;
 }
 
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  margin-top: 1rem;
+  border-top: 1px solid #edf0f5;
+}
+
+.pageInfo {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.paginationButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pageButton {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--color-teal);
+  border-radius: 8px;
+  background: var(--color-teal);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background: var(--color-teal-dark);
+  border-color: var(--color-teal-dark);
+}
+
+.pageButton:disabled {
+  background: #edf0f5;
+  border-color: #edf0f5;
+  color: #a0a7b4;
+  cursor: not-allowed;
+}
+
 @media (max-width: 900px) {
   .summaryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -367,5 +413,17 @@
   .appointmentBottom {
     align-items: flex-start;
     flex-direction: column;
+  }
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .paginationButtons {
+    width: 100%;
+  }
+
+  .pageButton {
+    flex: 1;
   }
 }

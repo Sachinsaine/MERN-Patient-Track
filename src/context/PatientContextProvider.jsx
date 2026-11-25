@@ -10,6 +10,7 @@ export const PatientContextProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [editPatientOpen, setEditPatientOpen] = useState(false);
   const patient = patients.find((patient) => patient._id === selectedPatient);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (!selectedPatient && patients?.length > 0) {
@@ -29,6 +30,8 @@ export const PatientContextProvider = ({ children }) => {
     setOpen,
     editPatientOpen,
     setEditPatientOpen,
+    currentPage,
+    setCurrentPage,
   };
   return (
     <PatientContext.Provider value={value}>{children}</PatientContext.Provider>

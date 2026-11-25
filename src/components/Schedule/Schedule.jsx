@@ -15,7 +15,7 @@ import { Loader } from "../Loader/Loader";
 
 export const Schedule = () => {
   const { appointments } = useAppointments();
-  const { loading } = useContext(PatientContext);
+  const { loading, currentPage, setCurrentPage } = useContext(PatientContext);
 
   if (loading) {
     return <Loader />;
@@ -34,6 +34,15 @@ export const Schedule = () => {
   const scheduledAppointments = appointments.filter(
     (appointment) => appointment.status === "Scheduled",
   ).length;
+
+  const appointmentsPerPage = 8;
+
+  const lastIndex = currentPage * appointmentsPerPage;
+  const firstIndex = lastIndex - appointmentsPerPage;
+
+  const appointmentPerPage = appointments.slice(firstIndex, lastIndex);
+
+  const totalPages = Math.ceil(appointments.length / appointmentsPerPage);
 
   return (
     <motion.div
@@ -129,12 +138,12 @@ export const Schedule = () => {
           </div>
 
           <div className={styles.timeline}>
-            {appointments.length === 0 ? (
+            {appointmentPerPage.length === 0 ? (
               <p className={styles.emptyAppointments}>
                 No appointments available.
               </p>
             ) : (
-              appointments.map((appointment) => (
+              appointmentPerPage.map((appointment) => (
                 <article className={styles.appointment} key={appointment.id}>
                   <div className={styles.timeColumn}>
                     <strong>{appointment.time}</strong>
@@ -178,6 +187,30 @@ export const Schedule = () => {
                 </article>
               ))
             )}
+
+            <div className={styles.pagination}>
+              <span className={styles.pageInfo}>
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <div className={styles.paginationButtons}>
+                <button
+                  className={styles.pageButton}
+                  onClick={() => setCurrentPage((prev) => prev - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+
+                <button
+                  className={styles.pageButton}
+                  onClick={() => setCurrentPage((prev) => prev + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
